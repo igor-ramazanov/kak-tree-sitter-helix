@@ -1,7 +1,8 @@
-import tomllib
+import os
 import pathlib
 import shutil
-import os
+import tomllib
+
 from hx_ts_scopes import hx_ts_scopes
 from kts_scopes import kts_scopes
 
@@ -89,8 +90,6 @@ def scope_value(scope):
         return result
 
 
-# TODO: `gray` is not supported in Kakoune.
-# TODO: what is `default` in Helix?
 def color(c):
     hx_ansi = set(
         [
@@ -125,14 +124,6 @@ def color(c):
             return ""
 
 
-# TODO:
-# 1. Map top level kak-tree-sitter faces to Kakoune default.
-#   a. Get all possible default syntax highlighting Kakoune default faces.
-# 2. Map UI faces.
-#   a. https://docs.helix-editor.com/themes.html#interface
-# 3. Map markup faces.
-#   a. start with markup.*
-# 4. Map kakoune-lsp faces.
 def main():
     def read(theme):
         with open(theme, "rb") as f:
