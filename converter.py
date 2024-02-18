@@ -69,7 +69,6 @@ def scope_value(scope):
             underline = "," + underline
         underline_curly = "style" in scope.get("underline", {})
         attributes = "+F"
-        # TODO: `hidden` modifier is not supported in Kakoune.
         for modifier in scope.get("modifiers", []):
             if modifier == "bold":
                 attributes += "b"
