@@ -28,6 +28,13 @@ def preprocess(themes, theme):
 def process(theme):
     result = ""
     result += palette(theme)
+
+    background = scope_value(theme.get("ui.background", ""))
+    text = scope_value(theme.get("ui.text", ""))
+    s = "# Standard Kakoune\n"
+    s += f'set-face global Default {background[:-1]}@Default"\n'
+    s += f'set-face global Default {text[:-1]}@Default"\n\n'
+    result += s
     result += scopes(theme)
     return result
 
@@ -37,7 +44,7 @@ def palette(theme):
     if "palette" in theme:
         colors = theme["palette"].items()
         faces = [(k.replace(".", "_").replace("-", "_"), color(c)) for k, c in colors]
-        faces = ["# palette"] + [f"declare-option str {k} '{v}'" for k, v in faces]
+        faces = ["# palette"] + [f'declare-option str {k} "{v}"' for k, v in faces]
         result = "\n".join(faces)
         del theme["palette"]
     result += "\n\n"
@@ -68,8 +75,9 @@ def scopes(theme):
 
 
 def scope_value(scope):
+    result = ""
     if isinstance(scope, str):
-        return color(scope)
+        result = color(scope)
     else:
         fg = color(scope.get("fg", ""))
         bg = color(scope.get("bg", ""))
@@ -79,7 +87,7 @@ def scope_value(scope):
         if bg != "" and underline != "":
             underline = "," + underline
         underline_curly = "style" in scope.get("underline", {})
-        attributes = "+F"
+        attributes = ""
         for modifier in scope.get("modifiers", []):
             if modifier == "bold":
                 attributes += "b"
@@ -96,8 +104,11 @@ def scope_value(scope):
                     attributes += "c"
                 else:
                     attributes += "u"
-        result = f'"{fg}{bg}{underline}{attributes}"'
-        return result
+        if attributes != "":
+            attributes = "+" + attributes
+        result = f"{fg}{bg}{underline}{attributes}"
+    result = f'"{result}"'
+    return result
 
 
 def color(c):

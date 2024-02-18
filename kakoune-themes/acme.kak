@@ -1,19 +1,23 @@
 # palette
-declare-option str white 'rgb:FFFFFF'
-declare-option str acme_bg 'rgb:FFFFEA'
-declare-option str black 'rgb:000000'
-declare-option str selected 'rgb:EEEE9E'
-declare-option str acme_bar_bg 'rgb:AEEEEE'
-declare-option str acme_bar_inactive 'rgb:EAFFFF'
-declare-option str cursor 'rgb:444444'
-declare-option str red 'rgb:A0342F'
-declare-option str green 'rgb:065905'
-declare-option str indent 'rgb:AAAAAA'
-declare-option str orange 'rgb:F0AD4E'
-declare-option str gray 'rgb:777777'
+declare-option str white "rgb:FFFFFF"
+declare-option str acme_bg "rgb:FFFFEA"
+declare-option str black "rgb:000000"
+declare-option str selected "rgb:EEEE9E"
+declare-option str acme_bar_bg "rgb:AEEEEE"
+declare-option str acme_bar_inactive "rgb:EAFFFF"
+declare-option str cursor "rgb:444444"
+declare-option str red "rgb:A0342F"
+declare-option str green "rgb:065905"
+declare-option str indent "rgb:AAAAAA"
+declare-option str orange "rgb:F0AD4E"
+declare-option str gray "rgb:777777"
+
+# Standard Kakoune
+set-face global Default ",%opt{acme_bg}@Default"
+set-face global Default "black@Default"
 
 # kak-tree-sitter
-set-face global ts_comment green
+set-face global ts_comment "green"
 set-face global ts_comment_block ts_comment
 set-face global ts_comment_line ts_comment
 set-face global ts_constant_builtin ts_constant
@@ -24,10 +28,10 @@ set-face global ts_constant_macro ts_constant
 set-face global ts_constant_numeric ts_constant
 set-face global ts_constant_numeric_float ts_constant_numeric
 set-face global ts_constant_numeric_integer ts_constant_numeric
-set-face global ts_diff_delta "%opt{acme_bar_bg}+F"
+set-face global ts_diff_delta "%opt{acme_bar_bg}"
 set-face global ts_diff_delta_moved ts_diff_delta
-set-face global ts_diff_minus "red+F"
-set-face global ts_diff_plus "green+F"
+set-face global ts_diff_minus "red"
+set-face global ts_diff_plus "green"
 set-face global ts_function_builtin ts_function
 set-face global ts_function_macro ts_function
 set-face global ts_function_method ts_function
@@ -78,7 +82,7 @@ set-face global ts_markup_strikethrough ts_markup
 set-face global ts_punctuation_bracket ts_punctuation
 set-face global ts_punctuation_delimiter ts_punctuation
 set-face global ts_punctuation_special ts_punctuation
-set-face global ts_string red
+set-face global ts_string "red"
 set-face global ts_string_escape ts_string
 set-face global ts_string_regex ts_string
 set-face global ts_string_regexp ts_string

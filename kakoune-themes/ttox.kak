@@ -1,10 +1,14 @@
 
 
+# Standard Kakoune
+set-face global Default "@Default"
+set-face global Default "@Default"
+
 # kak-tree-sitter
-set-face global ts_comment "black,bright-magenta+F"
+set-face global ts_comment "black,bright-magenta"
 set-face global ts_comment_block ts_comment
 set-face global ts_comment_line ts_comment
-set-face global ts_constant "black,bright-cyan+F"
+set-face global ts_constant "black,bright-cyan"
 set-face global ts_constant_builtin ts_constant
 set-face global ts_constant_builtin_boolean ts_constant_builtin
 set-face global ts_constant_character ts_constant
@@ -13,10 +17,10 @@ set-face global ts_constant_macro ts_constant
 set-face global ts_constant_numeric ts_constant
 set-face global ts_constant_numeric_float ts_constant_numeric
 set-face global ts_constant_numeric_integer ts_constant_numeric
-set-face global ts_diff_delta gray
+set-face global ts_diff_delta "gray"
 set-face global ts_diff_delta_moved ts_diff_delta
-set-face global ts_diff_minus red
-set-face global ts_diff_plus green
+set-face global ts_diff_minus "red"
+set-face global ts_diff_plus "green"
 set-face global ts_function_builtin ts_function
 set-face global ts_function_macro ts_function
 set-face global ts_function_method ts_function
@@ -67,7 +71,7 @@ set-face global ts_markup_strikethrough ts_markup
 set-face global ts_punctuation_bracket ts_punctuation
 set-face global ts_punctuation_delimiter ts_punctuation
 set-face global ts_punctuation_special ts_punctuation
-set-face global ts_string "black,bright-green+F"
+set-face global ts_string "black,bright-green"
 set-face global ts_string_escape ts_string
 set-face global ts_string_regex ts_string
 set-face global ts_string_regexp ts_string
