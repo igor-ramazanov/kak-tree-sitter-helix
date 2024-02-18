@@ -100,4 +100,3 @@ kts_scopes = set(
         "ts_warning",
     ]
 )
-

@@ -92,4 +92,3 @@ hx_ts_scopes = set(
         "variable.parameter",
     ]
 )
-

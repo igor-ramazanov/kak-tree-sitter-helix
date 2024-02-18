@@ -37,21 +37,32 @@ def palette(theme):
     if "palette" in theme:
         colors = theme["palette"].items()
         faces = [(k.replace(".", "_").replace("-", "_"), color(c)) for k, c in colors]
-        faces = [f"declare-option str {k} '{v}'" for k, v in faces]
+        faces = ["# palette"] + [f"declare-option str {k} '{v}'" for k, v in faces]
         result = "\n".join(faces)
         del theme["palette"]
-    result += "\n"
+    result += "\n\n"
     return result
 
 
 def scopes(theme):
+    def fallbacks(res):
+        for key in kts_scopes:
+            elements = key.split("_")
+            for n in reversed(range(2, len(elements))):
+                child = "_".join(elements[: n + 1])
+                parent = "_".join(elements[:n])
+                res.update(dict([(child, res.get(child, parent))]))
+
     result = []
     for key, value in theme.items():
         if key in hx_ts_scopes:
             kts_key = "ts_" + key.replace(".", "_")
             if kts_key in kts_scopes:
                 result.append((kts_key, scope_value(value)))
-    result = [f"set-face global {k} {v}" for k, v in result]
+    result = dict(result)
+    fallbacks(result)
+    result = [f"set-face global {k} {v}" for k, v in result.items()]
+    result = ["# kak-tree-sitter"] + sorted(result)
     result = "\n".join(result)
     return result
 
