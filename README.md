@@ -12,7 +12,13 @@ This repo is in a heavy work-in-progress.
 
 The things will likely change a lot in the nearest future.
 
+## Vision
+The vision is similar to the one of [`Helix`](https://helix-editor.com): to provide good out-the-box experience with minimum configuration.
+
+We'll sacrifice configurability where possible in favour of the good experience if such trade-off comes.
+
 ## Contributions
 PRs are welcomed!
 
 Checkout the [issues list](https://github.com/igor-ramazanov/kak-tree-sitter-helix/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc).
+
