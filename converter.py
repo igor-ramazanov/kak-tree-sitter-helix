@@ -152,7 +152,7 @@ def main():
             return tomllib.load(f)
 
     def write(name, theme):
-        with open(f"./kakoune-themes/{name}.kak", "w") as file:
+        with open(f"./colors/{name}.kak", "w") as file:
             file.write(theme)
 
     themes = dict(
@@ -170,8 +170,8 @@ def main():
         ]
     )
 
-    shutil.rmtree("./kakoune-themes", ignore_errors=True)
-    os.mkdir("./kakoune-themes")
+    shutil.rmtree("./colors", ignore_errors=True)
+    os.mkdir("./colors")
 
     for name, theme in kakoune_themes.items():
         write(name, theme)
