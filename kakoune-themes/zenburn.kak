@@ -11,6 +11,7 @@ declare-option str statusbg "rgb:313633"
 declare-option str numeric "rgb:8CD0D3"
 
 # Standard Kakoune
+set-face global Default default,default,default
 set-face global Default ",%opt{bg}@Default"
 set-face global Default "%opt{normal}@Default"
 

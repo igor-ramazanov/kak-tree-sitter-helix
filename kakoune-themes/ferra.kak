@@ -12,6 +12,7 @@ declare-option str ferra_ember "rgb:E06B75"
 declare-option str ferra_honey "rgb:F5D76E"
 
 # Standard Kakoune
+set-face global Default default,default,default
 set-face global Default ",%opt{ferra_night}@Default"
 set-face global Default "%opt{ferra_blush}@Default"
 

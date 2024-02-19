@@ -144,6 +144,7 @@ declare-option str success_muted "rgb:26A148"
 declare-option str success_subtle "rgb:D2FEDB"
 
 # Standard Kakoune
+set-face global Default default,default,default
 set-face global Default ",%opt{canvas_default}@Default"
 set-face global Default "%opt{fg_muted}@Default"
 

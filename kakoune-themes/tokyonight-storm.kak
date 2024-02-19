@@ -8,6 +8,7 @@ declare-option str bg_visual "rgb:2E3C64"
 declare-option str border_highlight "rgb:29A4BD"
 
 # Standard Kakoune
+set-face global Default default,default,default
 set-face global Default "%opt{fg},%opt{bg}@Default"
 set-face global Default "%opt{fg},%opt{bg}@Default"
 

@@ -19,6 +19,7 @@ declare-option str whitespace "rgb:586693"
 declare-option str yellow "rgb:F1FA8C"
 
 # Standard Kakoune
+set-face global Default default,default,default
 set-face global Default "%opt{foreground},%opt{background}@Default"
 set-face global Default "%opt{foreground}@Default"
 

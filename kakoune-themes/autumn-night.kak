@@ -22,6 +22,7 @@ declare-option str my_yellow1 "rgb:FAD566"
 declare-option str my_yellow2 "rgb:FFFF9F"
 
 # Standard Kakoune
+set-face global Default default,default,default
 set-face global Default ",%opt{my_gray0}@Default"
 set-face global Default "%opt{my_white1}@Default"
 

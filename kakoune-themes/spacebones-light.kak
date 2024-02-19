@@ -21,6 +21,7 @@ declare-option str theme_green "rgb:67B11D"
 declare-option str theme_red "rgb:C10E0B"
 
 # Standard Kakoune
+set-face global Default default,default,default
 set-face global Default ",%opt{bg0}@Default"
 set-face global Default "%opt{fg1}@Default"
 

@@ -13,6 +13,7 @@ declare-option str orange "rgb:F0AD4E"
 declare-option str gray "rgb:777777"
 
 # Standard Kakoune
+set-face global Default default,default,default
 set-face global Default ",%opt{acme_bg}@Default"
 set-face global Default "black@Default"
 

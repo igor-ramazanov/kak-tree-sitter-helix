@@ -19,6 +19,7 @@ declare-option str lightblue "rgb:6897BB"
 declare-option str blue "rgb:104158"
 
 # Standard Kakoune
+set-face global Default default,default,default
 set-face global Default ",%opt{grey01}@Default"
 set-face global Default "white@Default"
 

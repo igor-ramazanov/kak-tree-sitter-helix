@@ -17,6 +17,7 @@ declare-option str mid_blue "rgb:47ACE8"
 declare-option str light_blue "rgb:87EFFF"
 
 # Standard Kakoune
+set-face global Default default,default,default
 set-face global Default "%opt{autocomp_green},%opt{dark_green}@Default"
 set-face global Default "white@Default"
 

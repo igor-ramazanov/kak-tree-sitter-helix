@@ -27,6 +27,7 @@ declare-option str diff_plus "rgb:87A800"
 declare-option str diff_delta_moved "rgb:0048BD"
 
 # Standard Kakoune
+set-face global Default default,default,default
 set-face global Default "%opt{t4},%opt{t2}@Default"
 set-face global Default "%opt{t4}@Default"
 

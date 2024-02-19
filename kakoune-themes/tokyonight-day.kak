@@ -34,6 +34,7 @@ declare-option str bg_menu "rgb:E9E9EC"
 declare-option str bg_visual "rgb:B6BFE2"
 
 # Standard Kakoune
+set-face global Default default,default,default
 set-face global Default "%opt{fg},%opt{bg}@Default"
 set-face global Default "%opt{fg},%opt{bg}@Default"
 

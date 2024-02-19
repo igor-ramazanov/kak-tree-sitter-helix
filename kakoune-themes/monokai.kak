@@ -14,6 +14,7 @@ declare-option str widget "rgb:1E1F1C"
 declare-option str selection "rgb:414339"
 
 # Standard Kakoune
+set-face global Default default,default,default
 set-face global Default "%opt{text},%opt{background}@Default"
 set-face global Default "%opt{text}@Default"
 

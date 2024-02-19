@@ -35,6 +35,7 @@ declare-option str conditional "rgb:A8A29E"
 declare-option str cursor "rgb:E5C890"
 
 # Standard Kakoune
+set-face global Default default,default,default
 set-face global Default ",%opt{bg}@Default"
 set-face global Default "%opt{fg}@Default"
 

@@ -26,6 +26,7 @@ declare-option str grey "rgb:7F8490"
 declare-option str grey_dim "rgb:595F6F"
 
 # Standard Kakoune
+set-face global Default default,default,default
 set-face global Default ",%opt{bg0}@Default"
 set-face global Default "%opt{fg}@Default"
 

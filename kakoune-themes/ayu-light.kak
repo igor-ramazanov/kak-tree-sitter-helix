@@ -15,6 +15,7 @@ declare-option str red "rgb:F07171"
 declare-option str yellow "rgb:FFAA33"
 
 # Standard Kakoune
+set-face global Default default,default,default
 set-face global Default ",%opt{background}@Default"
 set-face global Default "%opt{foreground}@Default"
 

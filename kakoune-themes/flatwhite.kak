@@ -30,6 +30,7 @@ declare-option str diff_renamed "rgb:52AEFF"
 declare-option str white "rgb:FFFFFF"
 
 # Standard Kakoune
+set-face global Default default,default,default
 set-face global Default "%opt{base1},%opt{base7}@Default"
 set-face global Default "%opt{base1}@Default"
 

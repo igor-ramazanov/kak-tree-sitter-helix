@@ -1,6 +1,7 @@
 
 
 # Standard Kakoune
+set-face global Default default,default,default
 set-face global Default "@Default"
 set-face global Default "@Default"
 

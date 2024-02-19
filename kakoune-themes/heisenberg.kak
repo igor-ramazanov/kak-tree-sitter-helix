@@ -16,6 +16,7 @@ declare-option str desert_maroon "rgb:2B0C02"
 declare-option str chili_powder_red "rgb:C32101"
 
 # Standard Kakoune
+set-face global Default default,default,default
 set-face global Default ",%opt{background}@Default"
 set-face global Default "%opt{crystal_blue}@Default"
 

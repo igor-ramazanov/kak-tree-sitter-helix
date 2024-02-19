@@ -29,6 +29,7 @@ declare-option str cyan "rgb:A1EFE4"
 declare-option str violet "rgb:A381FF"
 
 # Standard Kakoune
+set-face global Default default,default,default
 set-face global Default ",%opt{bg}@Default"
 set-face global Default "%opt{text}@Default"
 

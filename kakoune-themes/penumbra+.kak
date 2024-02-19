@@ -18,6 +18,7 @@ declare-option str shade "rgb:24272B"
 declare-option str shade_ "rgb:181B1F"
 
 # Standard Kakoune
+set-face global Default default,default,default
 set-face global Default ",%opt{shade}@Default"
 set-face global Default "%opt{sky}@Default"
 

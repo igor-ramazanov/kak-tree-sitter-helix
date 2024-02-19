@@ -19,6 +19,7 @@ declare-option str bgrey_two "rgb:706B68"
 declare-option str gruvgreen "rgb:B8BB26"
 
 # Standard Kakoune
+set-face global Default default,default,default
 set-face global Default "rgb:25262B,rgb:1F1F21@Default"
 set-face global Default "white@Default"
 

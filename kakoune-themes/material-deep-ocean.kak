@@ -19,6 +19,7 @@ declare-option str selection "rgb:1F2233"
 declare-option str line_number "rgb:3B3F51"
 
 # Standard Kakoune
+set-face global Default default,default,default
 set-face global Default "%opt{text},%opt{bg}@Default"
 set-face global Default "%opt{text}@Default"
 

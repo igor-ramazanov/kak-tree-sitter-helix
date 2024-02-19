@@ -30,6 +30,7 @@ declare-option str wisteria "rgb:9E95C7"
 declare-option str aqua1 "rgb:8EC07C"
 
 # Standard Kakoune
+set-face global Default default,default,default
 set-face global Default ",%opt{bg0}@Default"
 set-face global Default "%opt{fg0}@Default"
 

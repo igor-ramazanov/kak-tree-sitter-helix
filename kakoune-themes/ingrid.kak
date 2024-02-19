@@ -1,6 +1,7 @@
 
 
 # Standard Kakoune
+set-face global Default default,default,default
 set-face global Default ",rgb:FFFCFD@Default"
 set-face global Default "rgb:7B91B3@Default"
 

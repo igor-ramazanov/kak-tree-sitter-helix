@@ -10,6 +10,7 @@ declare-option str comment "rgb:616161"
 declare-option str selection "rgb:404040"
 
 # Standard Kakoune
+set-face global Default default,default,default
 set-face global Default "%opt{text},%opt{bg}@Default"
 set-face global Default "%opt{text}@Default"
 

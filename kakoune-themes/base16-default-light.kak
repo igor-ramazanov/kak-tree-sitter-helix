@@ -17,6 +17,7 @@ declare-option str base0E "rgb:BA8BAF"
 declare-option str base0F "rgb:A16946"
 
 # Standard Kakoune
+set-face global Default default,default,default
 set-face global Default ",%opt{base00}@Default"
 set-face global Default "%opt{base05}@Default"
 

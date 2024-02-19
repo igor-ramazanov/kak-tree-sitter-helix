@@ -18,6 +18,7 @@ declare-option str bogster_fg0 "rgb:C6B8AD"
 declare-option str bogster_fg1 "rgb:E5DED6"
 
 # Standard Kakoune
+set-face global Default default,default,default
 set-face global Default ",%opt{bogster_base1}@Default"
 set-face global Default "%opt{bogster_fg1}@Default"
 

@@ -6,6 +6,7 @@ declare-option str grey03 "rgb:555555"
 declare-option str grey04 "rgb:A8A8A8"
 
 # Standard Kakoune
+set-face global Default default,default,default
 set-face global Default ",%opt{grey01}@Default"
 set-face global Default "white@Default"
 

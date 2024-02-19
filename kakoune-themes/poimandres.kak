@@ -24,6 +24,7 @@ declare-option str black "rgb:000000"
 declare-option str transparent "rgb:00000000"
 
 # Standard Kakoune
+set-face global Default default,default,default
 set-face global Default ",%opt{bg}@Default"
 set-face global Default "gray@Default"
 

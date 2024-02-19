@@ -3,6 +3,7 @@ declare-option str nord0 "rgb:252933"
 declare-option str nord4 "rgb:C0C5CF"
 
 # Standard Kakoune
+set-face global Default default,default,default
 set-face global Default ",%opt{nord0}@Default"
 set-face global Default "%opt{nord4}@Default"
 

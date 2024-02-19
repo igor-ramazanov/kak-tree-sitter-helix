@@ -20,6 +20,7 @@ declare-option str olive "rgb:B6D37C"
 declare-option str opal "rgb:B1D7C7"
 
 # Standard Kakoune
+set-face global Default default,default,default
 set-face global Default "%opt{foreground},%opt{background}@Default"
 set-face global Default "%opt{foreground}@Default"
 

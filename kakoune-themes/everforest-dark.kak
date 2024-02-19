@@ -27,6 +27,7 @@ declare-option str statusline2 "rgb:D3C6AA"
 declare-option str statusline3 "rgb:E67E80"
 
 # Standard Kakoune
+set-face global Default default,default,default
 set-face global Default ",%opt{bg0}@Default"
 set-face global Default "%opt{fg}@Default"
 

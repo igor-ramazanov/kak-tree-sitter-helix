@@ -39,6 +39,7 @@ declare-option str surimiOrange "rgb:FFA066"
 declare-option str katanaGray "rgb:717C7C"
 
 # Standard Kakoune
+set-face global Default default,default,default
 set-face global Default "%opt{fujiWhite},%opt{sumiInk1}@Default"
 set-face global Default "%opt{fujiWhite}@Default"
 

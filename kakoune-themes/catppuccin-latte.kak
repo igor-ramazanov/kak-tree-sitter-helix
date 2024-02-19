@@ -31,6 +31,7 @@ declare-option str secondary_cursor_normal "rgb:98A7FB"
 declare-option str secondary_cursor_insert "rgb:75B868"
 
 # Standard Kakoune
+set-face global Default default,default,default
 set-face global Default "%opt{text},%opt{base}@Default"
 set-face global Default "%opt{text}@Default"
 

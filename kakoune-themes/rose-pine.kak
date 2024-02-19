@@ -22,6 +22,7 @@ declare-option str highlight_med "rgb:403D52"
 declare-option str highlight_high "rgb:524F67"
 
 # Standard Kakoune
+set-face global Default default,default,default
 set-face global Default ",%opt{base}@Default"
 set-face global Default "%opt{text}@Default"
 

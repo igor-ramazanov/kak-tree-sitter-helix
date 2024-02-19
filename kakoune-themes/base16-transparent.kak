@@ -1,6 +1,7 @@
 
 
 # Standard Kakoune
+set-face global Default default,default,default
 set-face global Default "white@Default"
 set-face global Default "bright-gray@Default"
 

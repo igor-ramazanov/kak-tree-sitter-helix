@@ -7,6 +7,7 @@ declare-option str vibrant_yellow "rgb:CFCA0D"
 declare-option str vibrant_orange "rgb:FF8732"
 
 # Standard Kakoune
+set-face global Default default,default,default
 set-face global Default ",%opt{background}@Default"
 set-face global Default "%opt{foreground}@Default"
 

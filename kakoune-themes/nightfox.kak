@@ -33,6 +33,7 @@ declare-option str sel0 "rgb:2B3B51"
 declare-option str sel1 "rgb:3C5372"
 
 # Standard Kakoune
+set-face global Default default,default,default
 set-face global Default ",%opt{bg1}@Default"
 set-face global Default "%opt{fg1}@Default"
 

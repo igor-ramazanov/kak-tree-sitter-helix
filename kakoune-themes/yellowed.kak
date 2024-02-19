@@ -18,6 +18,7 @@ declare-option str info "rgb:0092FF"
 declare-option str hint "rgb:4DFF00"
 
 # Standard Kakoune
+set-face global Default default,default,default
 set-face global Default "%opt{text},%opt{dark_gray}@Default"
 set-face global Default "%opt{text}@Default"
 

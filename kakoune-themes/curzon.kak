@@ -35,6 +35,7 @@ declare-option str built_in "rgb:10B981"
 declare-option str statusline_foreground_color "rgb:6366F1"
 
 # Standard Kakoune
+set-face global Default default,default,default
 set-face global Default ",black@Default"
 set-face global Default "%opt{text}@Default"
 

@@ -21,6 +21,7 @@ declare-option str dark_grey2 "rgb:383735"
 declare-option str secondary_white "rgb:C2B4A8"
 
 # Standard Kakoune
+set-face global Default default,default,default
 set-face global Default "%opt{light_grey},black@Default"
 set-face global Default "white@Default"
 

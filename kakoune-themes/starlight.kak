@@ -17,6 +17,7 @@ declare-option str dark_fg "rgb:929292"
 declare-option str light_fg "rgb:E6E6E6"
 
 # Standard Kakoune
+set-face global Default default,default,default
 set-face global Default "%opt{dark_fg},%opt{dark_bg}@Default"
 set-face global Default "%opt{light_fg}@Default"
 

@@ -32,6 +32,7 @@ declare-option str brownD "rgb:2B2928"
 declare-option str brownU "rgb:4C4643"
 
 # Standard Kakoune
+set-face global Default default,default,default
 set-face global Default ",%opt{brownN}@Default"
 set-face global Default "%opt{greyT}@Default"
 

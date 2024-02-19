@@ -68,6 +68,7 @@ declare-option str yellow_6 "rgb:D38B09"
 declare-option str split_and_borders "rgb:4F4F4F"
 
 # Standard Kakoune
+set-face global Default default,default,default
 set-face global Default "%opt{light_4},%opt{libadwaita_dark}@Default"
 set-face global Default "%opt{light_4}@Default"
 

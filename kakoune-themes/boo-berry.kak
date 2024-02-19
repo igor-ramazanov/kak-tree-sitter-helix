@@ -11,6 +11,7 @@ declare-option str mint "rgb:7FC9AB"
 declare-option str violet "rgb:C78DFC"
 
 # Standard Kakoune
+set-face global Default default,default,default
 set-face global Default ",%opt{berry}@Default"
 set-face global Default "%opt{lilac}@Default"
 

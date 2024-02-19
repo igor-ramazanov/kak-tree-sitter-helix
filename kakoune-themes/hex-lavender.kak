@@ -23,6 +23,7 @@ declare-option str display "rgb:57FF89"
 declare-option str info "rgb:DAD7D5"
 
 # Standard Kakoune
+set-face global Default default,default,default
 set-face global Default "%opt{t4},%opt{t2}@Default"
 set-face global Default "%opt{t4}@Default"
 

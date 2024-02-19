@@ -18,6 +18,7 @@ declare-option str violet0 "rgb:CE8B9F"
 declare-option str white0 "rgb:CEBABF"
 
 # Standard Kakoune
+set-face global Default default,default,default
 set-face global Default ",%opt{dark_red0}@Default"
 set-face global Default "%opt{white0}@Default"
 

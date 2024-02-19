@@ -549,6 +549,7 @@ declare-option str gray99 "rgb:FCFCFC"
 declare-option str gray100 "rgb:FFFFFF"
 
 # Standard Kakoune
+set-face global Default default,default,default
 set-face global Default "black,white@Default"
 set-face global Default "black@Default"
 

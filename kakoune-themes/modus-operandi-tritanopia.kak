@@ -25,6 +25,7 @@ declare-option str bg_changed "rgb:EECFDF"
 declare-option str fg_changed "rgb:6F1343"
 
 # Standard Kakoune
+set-face global Default default,default,default
 set-face global Default ",%opt{bg_main}@Default"
 set-face global Default "%opt{fg_main}@Default"
 

@@ -72,6 +72,7 @@ declare-option str fg_removed "rgb:8F1313"
 declare-option str bg_paren_match "rgb:5FCFFF"
 
 # Standard Kakoune
+set-face global Default default,default,default
 set-face global Default ",%opt{bg_main}@Default"
 set-face global Default "%opt{fg_main}@Default"
 

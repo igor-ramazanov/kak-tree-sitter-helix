@@ -2,6 +2,7 @@
 declare-option str bg0 "rgb:F9F5D7"
 
 # Standard Kakoune
+set-face global Default default,default,default
 set-face global Default ",%opt{bg0}@Default"
 set-face global Default "%opt{fg1}@Default"
 

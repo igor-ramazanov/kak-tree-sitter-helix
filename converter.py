@@ -32,6 +32,7 @@ def process(theme):
     background = scope_value(theme.get("ui.background", ""))
     text = scope_value(theme.get("ui.text", ""))
     s = "# Standard Kakoune\n"
+    s += "set-face global Default default,default,default\n"
     s += f'set-face global Default {background[:-1]}@Default"\n'
     s += f'set-face global Default {text[:-1]}@Default"\n\n'
     result += s

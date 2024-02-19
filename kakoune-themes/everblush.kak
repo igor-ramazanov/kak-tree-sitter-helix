@@ -22,6 +22,7 @@ declare-option str foreground "rgb:DADADA"
 declare-option str cursorline "rgb:2C3333"
 
 # Standard Kakoune
+set-face global Default default,default,default
 set-face global Default "%opt{foreground},%opt{background}@Default"
 set-face global Default "%opt{foreground}@Default"
 

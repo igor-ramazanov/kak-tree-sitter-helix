@@ -17,6 +17,7 @@ declare-option str ui_text "rgb:C8CCD4FF"
 declare-option str ui_text_reversed "rgb:282C33FF"
 
 # Standard Kakoune
+set-face global Default default,default,default
 set-face global Default ",%opt{ui_text_reversed}@Default"
 set-face global Default "%opt{ui_text}@Default"
 

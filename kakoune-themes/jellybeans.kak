@@ -29,6 +29,7 @@ declare-option str selection "rgb:37232D"
 declare-option str selectionFG "rgb:F2AAC7"
 
 # Standard Kakoune
+set-face global Default default,default,default
 set-face global Default ",%opt{background}@Default"
 set-face global Default "%opt{light_yellow}@Default"
 

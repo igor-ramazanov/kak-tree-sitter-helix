@@ -65,6 +65,7 @@ declare-option str light_cyan "rgb:00AFAF"
 declare-option str light_white "rgb:5F8787"
 
 # Standard Kakoune
+set-face global Default default,default,default
 set-face global Default ",%opt{background}@Default"
 set-face global Default "%opt{foreground}@Default"
 
