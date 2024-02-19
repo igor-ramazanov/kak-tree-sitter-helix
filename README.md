@@ -22,3 +22,12 @@ PRs are welcomed!
 
 Checkout the [issues list](https://github.com/igor-ramazanov/kak-tree-sitter-helix/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc).
 
+## Screenshots example
+`nord`:
+![image](https://github.com/igor-ramazanov/kak-tree-sitter-helix/assets/12570166/c9f64c37-15a0-481d-af74-619bed47ee25)
+
+`catpuccin-macchiato`:
+![image](https://github.com/igor-ramazanov/kak-tree-sitter-helix/assets/12570166/f28c4193-d0b6-460e-b6aa-a6d483c63b09)
+
+`everforest-dark`:
+![image](https://github.com/igor-ramazanov/kak-tree-sitter-helix/assets/12570166/14741873-8e1f-420b-ba2f-75c83784fab7)
