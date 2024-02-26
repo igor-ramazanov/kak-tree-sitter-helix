@@ -131,4 +131,4 @@ set-face global ts_variable "%opt{greyT}"
 set-face global ts_variable_builtin "%opt{blueL}"
 set-face global ts_variable_other ts_variable
 set-face global ts_variable_other_member "%opt{orangeH}"
-set-face global ts_variable_parameter "white"
+set-face global ts_variable_parameter "bright-white"

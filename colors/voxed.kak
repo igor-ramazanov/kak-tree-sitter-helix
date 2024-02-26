@@ -21,7 +21,7 @@ declare-option str gruvgreen "rgb:B8BB26"
 # Standard Kakoune
 set-face global Default default,default,default
 set-face global Default "rgb:25262B,rgb:1F1F21@Default"
-set-face global Default "white@Default"
+set-face global Default "bright-white@Default"
 
 # kak-tree-sitter
 set-face global ts_attribute "%opt{buff}"
@@ -94,7 +94,7 @@ set-face global ts_markup_raw_inline ts_markup_raw
 set-face global ts_markup_strikethrough "+s"
 set-face global ts_namespace "blue"
 set-face global ts_operator "%opt{greenish}"
-set-face global ts_punctuation "white"
+set-face global ts_punctuation "bright-white"
 set-face global ts_punctuation_bracket ts_punctuation
 set-face global ts_punctuation_delimiter "%opt{functionish}"
 set-face global ts_punctuation_special ts_punctuation
@@ -115,7 +115,7 @@ set-face global ts_type_builtin "%opt{functionish}"
 set-face global ts_type_enum ts_type
 set-face global ts_type_enum_variant ts_type_enum
 set-face global ts_variable "%opt{tan}"
-set-face global ts_variable_builtin "white"
+set-face global ts_variable_builtin "bright-white"
 set-face global ts_variable_other ts_variable
 set-face global ts_variable_other_member "%opt{bsienna}"
 set-face global ts_variable_parameter "%opt{parameters}"

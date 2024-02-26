@@ -18,10 +18,10 @@ declare-option str emerald_green "rgb:4EC9B0"
 # Standard Kakoune
 set-face global Default default,default,default
 set-face global Default ",black@Default"
-set-face global Default "white@Default"
+set-face global Default "bright-white@Default"
 
 # kak-tree-sitter
-set-face global ts_comment "white"
+set-face global ts_comment "bright-white"
 set-face global ts_comment_block ts_comment
 set-face global ts_comment_line ts_comment
 set-face global ts_constant "%opt{aqua}"
@@ -89,7 +89,7 @@ set-face global ts_markup_raw_block ts_markup_raw
 set-face global ts_markup_raw_inline ts_markup_raw
 set-face global ts_markup_strikethrough "+s"
 set-face global ts_namespace "blue"
-set-face global ts_operator "white"
+set-face global ts_operator "bright-white"
 set-face global ts_punctuation_bracket ts_punctuation
 set-face global ts_punctuation_delimiter ts_punctuation
 set-face global ts_punctuation_special ts_punctuation

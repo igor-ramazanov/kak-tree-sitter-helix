@@ -56,7 +56,7 @@ set-face global ts_keyword_control_exception ts_keyword_control
 set-face global ts_keyword_control_import ts_keyword_control
 set-face global ts_keyword_control_repeat ts_keyword_control
 set-face global ts_keyword_control_return ts_keyword_control
-set-face global ts_keyword_directive "white"
+set-face global ts_keyword_directive "bright-white"
 set-face global ts_keyword_function ts_keyword
 set-face global ts_keyword_operator "%opt{base0E}+i"
 set-face global ts_keyword_special ts_keyword

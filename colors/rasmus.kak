@@ -35,7 +35,7 @@ set-face global ts_attribute "cyan"
 set-face global ts_comment "%opt{gray05}+i"
 set-face global ts_comment_block ts_comment
 set-face global ts_comment_line ts_comment
-set-face global ts_constant "white"
+set-face global ts_constant "bright-white"
 set-face global ts_constant_builtin ts_constant
 set-face global ts_constant_builtin_boolean ts_constant_builtin
 set-face global ts_constant_character ts_constant
@@ -49,7 +49,7 @@ set-face global ts_diff_delta "%opt{bright_cyan}"
 set-face global ts_diff_delta_moved ts_diff_delta
 set-face global ts_diff_minus "%opt{bright_red}"
 set-face global ts_diff_plus "%opt{bright_green}"
-set-face global ts_function "white"
+set-face global ts_function "bright-white"
 set-face global ts_function_builtin "blue"
 set-face global ts_function_macro "blue"
 set-face global ts_function_method ts_function
@@ -76,7 +76,7 @@ set-face global ts_keyword_storage_type ts_keyword_storage
 set-face global ts_label "yellow"
 set-face global ts_markup_bold "+b"
 set-face global ts_markup_heading ts_markup
-set-face global ts_markup_heading_1 "white+b"
+set-face global ts_markup_heading_1 "bright-white+b"
 set-face global ts_markup_heading_2 "%opt{gray07}+b"
 set-face global ts_markup_heading_3 "%opt{gray07}+b"
 set-face global ts_markup_heading_4 "%opt{gray07}+b"
@@ -121,8 +121,8 @@ set-face global ts_type "%opt{bright_white}"
 set-face global ts_type_builtin "magenta"
 set-face global ts_type_enum ts_type
 set-face global ts_type_enum_variant "magenta"
-set-face global ts_variable "white"
+set-face global ts_variable "bright-white"
 set-face global ts_variable_builtin "%opt{bright_blue}"
 set-face global ts_variable_other ts_variable
-set-face global ts_variable_other_member "white"
+set-face global ts_variable_other_member "bright-white"
 set-face global ts_variable_parameter "%opt{bright_white}"

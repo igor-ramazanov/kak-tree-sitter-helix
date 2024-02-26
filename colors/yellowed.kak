@@ -38,7 +38,7 @@ set-face global ts_constant_numeric_float ts_constant_numeric
 set-face global ts_constant_numeric_integer ts_constant_numeric
 set-face global ts_constructor "%opt{text}+b"
 set-face global ts_diff_delta "blue"
-set-face global ts_diff_delta_moved "gray"
+set-face global ts_diff_delta_moved "bright-black"
 set-face global ts_diff_minus "red"
 set-face global ts_diff_plus "green"
 set-face global ts_function "%opt{text}+b"

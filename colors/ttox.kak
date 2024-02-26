@@ -18,7 +18,7 @@ set-face global ts_constant_macro ts_constant
 set-face global ts_constant_numeric ts_constant
 set-face global ts_constant_numeric_float ts_constant_numeric
 set-face global ts_constant_numeric_integer ts_constant_numeric
-set-face global ts_diff_delta "gray"
+set-face global ts_diff_delta "bright-black"
 set-face global ts_diff_delta_moved ts_diff_delta
 set-face global ts_diff_minus "red"
 set-face global ts_diff_plus "green"

@@ -2,12 +2,12 @@
 
 # Standard Kakoune
 set-face global Default default,default,default
+set-face global Default "bright-white@Default"
 set-face global Default "white@Default"
-set-face global Default "bright-gray@Default"
 
 # kak-tree-sitter
 set-face global ts_attribute "yellow"
-set-face global ts_comment "bright-gray"
+set-face global ts_comment "white"
 set-face global ts_comment_block ts_comment
 set-face global ts_comment_line ts_comment
 set-face global ts_constant "yellow"

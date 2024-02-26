@@ -23,7 +23,7 @@ declare-option str secondary_white "rgb:C2B4A8"
 # Standard Kakoune
 set-face global Default default,default,default
 set-face global Default "%opt{light_grey},black@Default"
-set-face global Default "white@Default"
+set-face global Default "bright-white@Default"
 
 # kak-tree-sitter
 set-face global ts_comment "%opt{comment}"
@@ -114,7 +114,7 @@ set-face global ts_type "%opt{secondary_white}"
 set-face global ts_type_builtin ts_type
 set-face global ts_type_enum ts_type
 set-face global ts_type_enum_variant ts_type_enum
-set-face global ts_variable "white"
+set-face global ts_variable "bright-white"
 set-face global ts_variable_builtin ts_variable
 set-face global ts_variable_other ts_variable
 set-face global ts_variable_other_member ts_variable_other

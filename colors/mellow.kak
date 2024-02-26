@@ -50,7 +50,7 @@ set-face global ts_diff_delta "%opt{bright_blue}"
 set-face global ts_diff_delta_moved ts_diff_delta
 set-face global ts_diff_minus "%opt{bright_red}"
 set-face global ts_diff_plus "%opt{bright_green}"
-set-face global ts_function "white"
+set-face global ts_function "bright-white"
 set-face global ts_function_builtin "%opt{bright_blue}"
 set-face global ts_function_macro "%opt{bright_cyan}"
 set-face global ts_function_method ts_function
@@ -125,5 +125,5 @@ set-face global ts_type_enum_variant "magenta"
 set-face global ts_variable "%opt{fg}"
 set-face global ts_variable_builtin "%opt{bright_blue}"
 set-face global ts_variable_other ts_variable
-set-face global ts_variable_other_member "white"
+set-face global ts_variable_other_member "bright-white"
 set-face global ts_variable_parameter "cyan"

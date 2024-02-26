@@ -66,7 +66,7 @@ set-face global ts_keyword_storage_modifier_ref ts_keyword_storage_modifier
 set-face global ts_keyword_storage_type ts_keyword_storage
 set-face global ts_label "blue"
 set-face global ts_markup_bold "magenta+b"
-set-face global ts_markup_heading "white+b"
+set-face global ts_markup_heading "bright-white+b"
 set-face global ts_markup_heading_1 ts_markup_heading
 set-face global ts_markup_heading_2 ts_markup_heading
 set-face global ts_markup_heading_3 ts_markup_heading
@@ -90,7 +90,7 @@ set-face global ts_markup_raw "green"
 set-face global ts_markup_raw_block ts_markup_raw
 set-face global ts_markup_raw_inline ts_markup_raw
 set-face global ts_markup_strikethrough "red"
-set-face global ts_namespace "white"
+set-face global ts_namespace "bright-white"
 set-face global ts_operator "blue"
 set-face global ts_punctuation "%opt{punct}"
 set-face global ts_punctuation_bracket ts_punctuation
@@ -112,7 +112,7 @@ set-face global ts_type "cyan"
 set-face global ts_type_builtin ts_type
 set-face global ts_type_enum ts_type
 set-face global ts_type_enum_variant ts_type_enum
-set-face global ts_variable "white"
+set-face global ts_variable "bright-white"
 set-face global ts_variable_builtin "blue"
 set-face global ts_variable_other ts_variable
 set-face global ts_variable_other_member "magenta"

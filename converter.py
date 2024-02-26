@@ -1,6 +1,7 @@
 import os
 import pathlib
 import shutil
+
 import tomllib
 
 from hx_ts_scopes import hx_ts_scopes
@@ -113,32 +114,30 @@ def scope_value(scope):
 
 
 def color(c):
-    hx_ansi = set(
-        [
-            "black",
-            "blue",
-            "cyan",
-            "default",
-            "gray",
-            "green",
-            "magenta",
-            "red",
-            "white",
-            "yellow",
-            "light-blue",
-            "light-cyan",
-            "light-gray",
-            "light-green",
-            "light-magenta",
-            "light-red",
-            "light-yellow",
-        ]
-    )
+    hx_ansi = {
+        "black": "black",
+        "gray": "bright-black",
+        "light-gray": "white",
+        "white": "bright-white",
+        "blue": "blue",
+        "cyan": "cyan",
+        "default": "default",
+        "green": "green",
+        "magenta": "magenta",
+        "red": "red",
+        "yellow": "yellow",
+        "light-blue": "bright-blue",
+        "light-cyan": "bright-cyan",
+        "light-green": "bright-green",
+        "light-magenta": "bright-magenta",
+        "light-red": "bright-red",
+        "light-yellow": "bright-yellow",
+    }
     if c.startswith("#"):
         return c.upper().replace("#", "rgb:")
     else:
         if c in hx_ansi:
-            return c.replace("light", "bright")
+            return hx_ansi.get(c)
         elif c != "":
             c = c.replace(".", "_").replace("-", "_")
             return f"%opt{{{c}}}"

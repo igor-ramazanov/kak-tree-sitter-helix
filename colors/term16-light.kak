@@ -7,7 +7,7 @@ set-face global Default "@Default"
 
 # kak-tree-sitter
 set-face global ts_attribute "yellow"
-set-face global ts_comment "gray+id"
+set-face global ts_comment "bright-black+id"
 set-face global ts_comment_block ts_comment
 set-face global ts_comment_line ts_comment
 set-face global ts_constant "yellow+b"

@@ -23,7 +23,7 @@ set-face global Default "%opt{fg}@Default"
 
 # kak-tree-sitter
 set-face global ts_attribute "blue"
-set-face global ts_comment "gray+i"
+set-face global ts_comment "bright-black+i"
 set-face global ts_comment_block "green+i"
 set-face global ts_comment_line ts_comment
 set-face global ts_constant "magenta"
@@ -43,7 +43,7 @@ set-face global ts_diff_plus "green"
 set-face global ts_function "yellow"
 set-face global ts_function_builtin "blue"
 set-face global ts_function_macro ts_function
-set-face global ts_function_method "white"
+set-face global ts_function_method "bright-white"
 set-face global ts_function_special ts_function
 set-face global ts_keyword "red"
 set-face global ts_keyword_conditional ts_keyword
@@ -90,10 +90,10 @@ set-face global ts_markup_raw ts_markup
 set-face global ts_markup_raw_block "green,%opt{base4}"
 set-face global ts_markup_raw_inline "green,%opt{base4}"
 set-face global ts_markup_strikethrough "+s"
-set-face global ts_namespace "white"
+set-face global ts_namespace "bright-white"
 set-face global ts_operator "blue"
 set-face global ts_punctuation_bracket "blue"
-set-face global ts_punctuation_delimiter "white+b"
+set-face global ts_punctuation_delimiter "bright-white+b"
 set-face global ts_punctuation_special ts_punctuation
 set-face global ts_special "%opt{orange}"
 set-face global ts_string "green"
@@ -115,4 +115,4 @@ set-face global ts_variable "cyan"
 set-face global ts_variable_builtin ts_variable
 set-face global ts_variable_other ts_variable
 set-face global ts_variable_other_member ts_variable_other
-set-face global ts_variable_parameter "white"
+set-face global ts_variable_parameter "bright-white"
