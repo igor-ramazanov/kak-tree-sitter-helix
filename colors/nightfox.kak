@@ -128,7 +128,7 @@ set-face global ts_type "yellow"
 set-face global ts_type_builtin "%opt{cyan_bright}"
 set-face global ts_type_enum ts_type
 set-face global ts_type_enum_variant "%opt{orange_bright}"
-set-face global ts_variable "white"
+set-face global ts_variable "bright-white"
 set-face global ts_variable_builtin "red"
 set-face global ts_variable_other ts_variable
 set-face global ts_variable_other_member "%opt{fg2}"

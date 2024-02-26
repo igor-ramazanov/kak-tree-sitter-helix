@@ -43,7 +43,7 @@ set-face global Default "%opt{text}@Default"
 set-face global ts_comment "%opt{comment_color}+i"
 set-face global ts_comment_block ts_comment
 set-face global ts_comment_line ts_comment
-set-face global ts_constant "white"
+set-face global ts_constant "bright-white"
 set-face global ts_constant_builtin ts_constant
 set-face global ts_constant_builtin_boolean ts_constant_builtin
 set-face global ts_constant_character ts_constant
@@ -57,8 +57,8 @@ set-face global ts_diff_delta "%opt{info}"
 set-face global ts_diff_delta_moved ts_diff_delta
 set-face global ts_diff_minus "rgb:F22C86"
 set-face global ts_diff_plus "rgb:35BF86"
-set-face global ts_function "white"
-set-face global ts_function_builtin "white"
+set-face global ts_function "bright-white"
+set-face global ts_function_builtin "bright-white"
 set-face global ts_function_macro "%opt{light_blue}"
 set-face global ts_function_method ts_function
 set-face global ts_function_special ts_function
@@ -125,12 +125,12 @@ set-face global ts_string_symbol ts_string
 set-face global ts_tag "%opt{tag}"
 set-face global ts_tag_error ts_tag
 set-face global ts_text_title ts_text
-set-face global ts_type "white"
-set-face global ts_type_builtin "white"
+set-face global ts_type "bright-white"
+set-face global ts_type_builtin "bright-white"
 set-face global ts_type_enum ts_type
 set-face global ts_type_enum_variant ts_type_enum
 set-face global ts_variable "%opt{variable}"
 set-face global ts_variable_builtin "%opt{built_in}+bi"
 set-face global ts_variable_other ts_variable
-set-face global ts_variable_other_member "white"
+set-face global ts_variable_other_member "bright-white"
 set-face global ts_variable_parameter "%opt{variable}"

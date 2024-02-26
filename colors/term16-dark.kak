@@ -7,7 +7,7 @@ set-face global Default "@Default"
 
 # kak-tree-sitter
 set-face global ts_attribute "bright-yellow"
-set-face global ts_comment "bright-gray+id"
+set-face global ts_comment "white+id"
 set-face global ts_comment_block ts_comment
 set-face global ts_comment_line ts_comment
 set-face global ts_constant "bright-yellow+bd"
@@ -94,7 +94,7 @@ set-face global ts_type "blue"
 set-face global ts_type_builtin "blue+b"
 set-face global ts_type_enum ts_type
 set-face global ts_type_enum_variant "bright-magenta+d"
-set-face global ts_variable "white"
+set-face global ts_variable "bright-white"
 set-face global ts_variable_builtin ts_variable
 set-face global ts_variable_other ts_variable
 set-face global ts_variable_other_member "bright-green"

@@ -26,7 +26,7 @@ declare-option str transparent "rgb:00000000"
 # Standard Kakoune
 set-face global Default default,default,default
 set-face global Default ",%opt{bg}@Default"
-set-face global Default "gray@Default"
+set-face global Default "bright-black@Default"
 
 # kak-tree-sitter
 set-face global ts_attribute "%opt{desaturatedBlue}+i"
@@ -62,7 +62,7 @@ set-face global ts_keyword_control_exception ts_keyword_control
 set-face global ts_keyword_control_import ts_keyword_control
 set-face global ts_keyword_control_repeat ts_keyword_control
 set-face global ts_keyword_control_return ts_keyword_control
-set-face global ts_keyword_directive "gray"
+set-face global ts_keyword_directive "bright-black"
 set-face global ts_keyword_function ts_keyword
 set-face global ts_keyword_operator "%opt{desaturatedBlue}"
 set-face global ts_keyword_special ts_keyword
@@ -99,7 +99,7 @@ set-face global ts_markup_raw_inline ts_markup_raw
 set-face global ts_markup_strikethrough "+is"
 set-face global ts_namespace "%opt{lightBlue}"
 set-face global ts_operator "%opt{desaturatedBlue}"
-set-face global ts_punctuation "gray"
+set-face global ts_punctuation "bright-black"
 set-face global ts_punctuation_bracket "%opt{desaturatedBlue}"
 set-face global ts_punctuation_delimiter ts_punctuation
 set-face global ts_punctuation_special ts_punctuation

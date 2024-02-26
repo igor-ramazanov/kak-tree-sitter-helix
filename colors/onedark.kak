@@ -17,11 +17,11 @@ declare-option str linenr "rgb:4B5263"
 # Standard Kakoune
 set-face global Default default,default,default
 set-face global Default ",black@Default"
-set-face global Default "white@Default"
+set-face global Default "bright-white@Default"
 
 # kak-tree-sitter
 set-face global ts_attribute "yellow"
-set-face global ts_comment "bright-gray+i"
+set-face global ts_comment "white+i"
 set-face global ts_comment_block ts_comment
 set-face global ts_comment_line ts_comment
 set-face global ts_constant "cyan"

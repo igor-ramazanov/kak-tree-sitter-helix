@@ -14,11 +14,11 @@ declare-option str blue "rgb:25B2BC"
 
 # Standard Kakoune
 set-face global Default default,default,default
-set-face global Default "gray,%opt{bg}@Default"
-set-face global Default "white@Default"
+set-face global Default "bright-black,%opt{bg}@Default"
+set-face global Default "bright-white@Default"
 
 # kak-tree-sitter
-set-face global ts_comment "bright-gray"
+set-face global ts_comment "white"
 set-face global ts_comment_block ts_comment
 set-face global ts_comment_line ts_comment
 set-face global ts_constant "%opt{purple}"
@@ -78,7 +78,7 @@ set-face global ts_markup_link_url ts_markup_link
 set-face global ts_markup_list ts_markup
 set-face global ts_markup_list_checked "green"
 set-face global ts_markup_list_numbered ts_markup_list
-set-face global ts_markup_list_unchecked "bright-gray"
+set-face global ts_markup_list_unchecked "white"
 set-face global ts_markup_list_unnumbered ts_markup_list
 set-face global ts_markup_quote "%opt{orange}"
 set-face global ts_markup_raw "%opt{orange}"

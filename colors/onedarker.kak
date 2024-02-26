@@ -17,11 +17,11 @@ declare-option str linenr "rgb:282C34"
 # Standard Kakoune
 set-face global Default default,default,default
 set-face global Default ",black@Default"
-set-face global Default "white@Default"
+set-face global Default "bright-white@Default"
 
 # kak-tree-sitter
 set-face global ts_attribute "yellow"
-set-face global ts_comment "bright-gray+i"
+set-face global ts_comment "white+i"
 set-face global ts_comment_block ts_comment
 set-face global ts_comment_line ts_comment
 set-face global ts_constant "%opt{gold}"
@@ -38,7 +38,7 @@ set-face global ts_diff_delta "%opt{gold}"
 set-face global ts_diff_delta_moved ts_diff_delta
 set-face global ts_diff_minus "red"
 set-face global ts_diff_plus "green"
-set-face global ts_function "white"
+set-face global ts_function "bright-white"
 set-face global ts_function_builtin "blue"
 set-face global ts_function_macro "%opt{purple}"
 set-face global ts_function_method ts_function
@@ -55,7 +55,7 @@ set-face global ts_keyword_control_repeat ts_keyword_control
 set-face global ts_keyword_control_return ts_keyword_control
 set-face global ts_keyword_directive "%opt{purple}"
 set-face global ts_keyword_function ts_keyword
-set-face global ts_keyword_operator "white"
+set-face global ts_keyword_operator "bright-white"
 set-face global ts_keyword_special ts_keyword
 set-face global ts_keyword_storage ts_keyword
 set-face global ts_keyword_storage_modifier ts_keyword_storage
@@ -74,8 +74,8 @@ set-face global ts_markup_heading_6 ts_markup_heading
 set-face global ts_markup_heading_marker ts_markup_heading
 set-face global ts_markup_italic "%opt{purple}+i"
 set-face global ts_markup_link ts_markup
-set-face global ts_markup_link_label "white"
-set-face global ts_markup_link_text "white"
+set-face global ts_markup_link_label "bright-white"
+set-face global ts_markup_link_text "bright-white"
 set-face global ts_markup_link_uri ts_markup_link
 set-face global ts_markup_link_url "blue+u"
 set-face global ts_markup_list ts_markup
@@ -85,11 +85,11 @@ set-face global ts_markup_list_unchecked ts_markup_list
 set-face global ts_markup_list_unnumbered ts_markup_list
 set-face global ts_markup_quote "yellow"
 set-face global ts_markup_raw ts_markup
-set-face global ts_markup_raw_block "white"
+set-face global ts_markup_raw_block "bright-white"
 set-face global ts_markup_raw_inline "green"
 set-face global ts_markup_strikethrough "+s"
 set-face global ts_namespace "%opt{purple}"
-set-face global ts_operator "white"
+set-face global ts_operator "bright-white"
 set-face global ts_punctuation_bracket ts_punctuation
 set-face global ts_punctuation_delimiter ts_punctuation
 set-face global ts_punctuation_special ts_punctuation
@@ -108,7 +108,7 @@ set-face global ts_type "yellow"
 set-face global ts_type_builtin ts_type
 set-face global ts_type_enum ts_type
 set-face global ts_type_enum_variant ts_type_enum
-set-face global ts_variable "white"
+set-face global ts_variable "bright-white"
 set-face global ts_variable_builtin "red"
 set-face global ts_variable_other ts_variable
 set-face global ts_variable_other_member "blue"

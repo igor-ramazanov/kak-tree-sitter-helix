@@ -133,5 +133,5 @@ set-face global ts_type_enum_variant "magenta"
 set-face global ts_variable "%opt{fg}"
 set-face global ts_variable_builtin "%opt{bright_blue}"
 set-face global ts_variable_other ts_variable
-set-face global ts_variable_other_member "white"
-set-face global ts_variable_parameter "white+i"
+set-face global ts_variable_other_member "bright-white"
+set-face global ts_variable_parameter "bright-white+i"

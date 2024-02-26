@@ -77,7 +77,7 @@ set-face global ts_keyword_storage_modifier_mut ts_keyword_storage_modifier
 set-face global ts_keyword_storage_modifier_ref ts_keyword_storage_modifier
 set-face global ts_keyword_storage_type ts_keyword_storage
 set-face global ts_label "yellow"
-set-face global ts_markup_bold "white+b"
+set-face global ts_markup_bold "bright-white+b"
 set-face global ts_markup_heading "%opt{mid_blue}+b"
 set-face global ts_markup_heading_1 ts_markup_heading
 set-face global ts_markup_heading_2 ts_markup_heading

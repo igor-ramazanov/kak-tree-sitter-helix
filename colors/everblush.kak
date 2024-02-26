@@ -96,10 +96,10 @@ set-face global ts_markup_raw_block ts_markup_raw
 set-face global ts_markup_raw_inline ts_markup_raw
 set-face global ts_markup_strikethrough "+s"
 set-face global ts_namespace "%opt{red_light}"
-set-face global ts_operator "white"
-set-face global ts_punctuation_bracket "white"
-set-face global ts_punctuation_delimiter "white"
-set-face global ts_punctuation_special "white"
+set-face global ts_operator "bright-white"
+set-face global ts_punctuation_bracket "bright-white"
+set-face global ts_punctuation_delimiter "bright-white"
+set-face global ts_punctuation_special "bright-white"
 set-face global ts_special "%opt{red_light}"
 set-face global ts_string "green"
 set-face global ts_string_escape ts_string
@@ -116,7 +116,7 @@ set-face global ts_type "yellow"
 set-face global ts_type_builtin "yellow"
 set-face global ts_type_enum ts_type
 set-face global ts_type_enum_variant ts_type_enum
-set-face global ts_variable "white"
+set-face global ts_variable "bright-white"
 set-face global ts_variable_builtin "blue"
 set-face global ts_variable_other ts_variable
 set-face global ts_variable_other_member "red"

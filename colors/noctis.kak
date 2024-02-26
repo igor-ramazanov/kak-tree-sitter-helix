@@ -19,11 +19,11 @@ declare-option str light_blue "rgb:87EFFF"
 # Standard Kakoune
 set-face global Default default,default,default
 set-face global Default "%opt{autocomp_green},%opt{dark_green}@Default"
-set-face global Default "white@Default"
+set-face global Default "bright-white@Default"
 
 # kak-tree-sitter
 set-face global ts_attribute "yellow"
-set-face global ts_comment "gray+i"
+set-face global ts_comment "bright-black+i"
 set-face global ts_comment_block ""
 set-face global ts_comment_line ""
 set-face global ts_constant "bright-blue+b"

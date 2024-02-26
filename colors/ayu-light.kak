@@ -20,7 +20,7 @@ set-face global Default ",%opt{background}@Default"
 set-face global Default "%opt{foreground}@Default"
 
 # kak-tree-sitter
-set-face global ts_comment "gray+i"
+set-face global ts_comment "bright-black+i"
 set-face global ts_comment_block ts_comment
 set-face global ts_comment_line ts_comment
 set-face global ts_constant "magenta"
