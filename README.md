@@ -2,17 +2,17 @@
 Python and Nix scripts to generate [kak-tree-sitter](https://github.com/phaazon/kak-tree-sitter) grammars, queries and themes by relying on [Helix repository](https://github.com/helix-editor/helix).
 
 ## Usage
-Nix flakes only (because that's what I use).
+Nix flakes + [`home-manager`](https://nix-community.github.io/home-manager/index.xhtml) module only for now, because that's what I use.
 
-The flake provides a `home-manager` module in its outputs.\
-To use the flake add it to your inputs, and then pass the module to `extraSpecialArgs` to the `home-manager`.\
-Then, add it to your `import = [...];`.\
-After that set `programs.kak-tree-sitter-helix.enable = true;` in your `home-manager`.
+1. Add the this flake to flake inputs.
+2. Pass the home-manager module to `extraSpecialArgs`.
+3. Import it: `import = [...];`.
+4. `programs.kak-tree-sitter-helix.enable = true;`
 
 This will:
 1. Add `kak-tree-sitter` package to your `home.packages`.
-1. Create `$XDG_CONFIG_DIR/kak-tree-sitter/config.toml` file.
-1. Create `$XDG_CONFIG_DIR/kak/colors` dir with themes.
+1. Create `$XDG_CONFIG_HOME/kak-tree-sitter/config.toml` file.
+1. Create `$XDG_CONFIG_HOME/kak/colors` dir with themes.
 1. Create `$XDG_DATA_DIR/kak-tree-sitter` dir with grammars and queries.
 
 ```nix
@@ -65,20 +65,18 @@ colorscheme catppuccin-latte # Or any other theme from $XDG_CONFIG_DIR/kak/color
 
 ### termcolors.kak
 The `$XDG_CONFIG_DIR/kak/colors/termcolors.kak` opinionatedly sets default Kakoune faces using ANSI terminal colors.\
-The reason is that I use https://danth.github.io/stylix to have consistent theming across the whole NixOS, and this file makes the Kakoune UI bit more consistent with the terminal colors.\
-I'll probably remove it in the future once I figure out mapping from Helix to Kakoune's default and UI faces.
-
+The reason is that I use [Stylix](https://danth.github.io/stylix) to have consistent theming across the whole NixOS, and `termcolors.kak` makes the Kakoune UI bit more consistent with the terminal colors.\
+I'll remove it in the future once I figure out mapping from Helix to Kakoune's default and UI faces.
 
 ## Motivation
-`kak-tree-sitter` is an amazing tool that brings the power of [tree-sitter](https://tree-sitter.github.io/tree-sitter/) to [Kakoune](http://kakoune.org).
-However, requires extensive configuration both to define grammars and themes.
-I would like to recreate Helix-like experience with minimal configuration by relying on its codebase.
+`kak-tree-sitter` is an amazing tool that brings the power of [tree-sitter](https://tree-sitter.github.io/tree-sitter/) to [Kakoune](http://kakoune.org).\
+However, it requires laboursome configuration to define grammars and themes.
+I would like to recreate Helix-like experience with minimal configuration.
 
 ## Note
-This repo is in a heavy work-in-progress state.
-Things are likely going to change a lot in the nearest future, consult with the source code first.
+This repo is in a heavy work-in-progress state, consult with the source code first.
 
-## Screenshots (likely outdated)
+## Screenshots (outdated)
 * `nord`:
 ![image](https://github.com/igor-ramazanov/kak-tree-sitter-helix/assets/12570166/c9f64c37-15a0-481d-af74-619bed47ee25)
 * `catpuccin-macchiato`:
