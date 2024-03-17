@@ -7,7 +7,7 @@
 stdenv.mkDerivation {
   pname = "kak-tree-sitter-helix-themes";
   version = helix.version;
-  src = ./python;
+  src = ./../python;
   buildInputs = [python311];
   buildPhase = ''
     mkdir themes
