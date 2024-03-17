@@ -1,0 +1,23 @@
+{helix}: {
+  stdenv,
+  python311,
+  lib,
+  ...
+}:
+stdenv.mkDerivation {
+  pname = "kak-tree-sitter-helix-themes";
+  version = helix.version;
+  src = ./python;
+  buildInputs = [python311];
+  buildPhase = ''
+    mkdir themes
+    cp ${helix.repo}/runtime/themes/*.toml ./themes/
+    python3 $src/converter.py
+    cp $src/termcolors.kak ./colors/
+  '';
+
+  installPhase = ''
+    mkdir $out
+    mv ./colors $out/
+  '';
+}
