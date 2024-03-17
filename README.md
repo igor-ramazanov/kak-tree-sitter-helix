@@ -70,7 +70,7 @@ I'll remove it in the future once I figure out mapping from Helix to Kakoune's d
 
 ## Motivation
 `kak-tree-sitter` is an amazing tool that brings the power of [tree-sitter](https://tree-sitter.github.io/tree-sitter/) to [Kakoune](http://kakoune.org).\
-However, it requires laboursome configuration to define grammars and themes.
+However, it requires laboursome configuration to define grammars and themes.\
 I would like to recreate Helix-like experience with minimal configuration.
 
 ## Note
