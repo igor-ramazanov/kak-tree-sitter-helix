@@ -1,39 +1,82 @@
 {
-  description = "A development environment Nix Flake";
+  description = "kak-tree-sitter + helix = ❤";
 
   inputs = {
     devshell.url = "github:numtide/devshell";
+    fenix.inputs.nixpkgs.follows = "nixpkgs";
+    fenix.url = "github:nix-community/fenix";
     flake-utils.url = "github:numtide/flake-utils";
+    nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
   };
 
   outputs = {
-    self,
     devshell,
+    fenix,
     flake-utils,
     nixpkgs,
+    ...
   }:
-    flake-utils.lib.eachDefaultSystem (
-      system: let
-        pkgs = import nixpkgs {
-          inherit system;
-          overlays = [devshell.overlays.default];
-        };
-      in {
-        formatter = pkgs.alejandra;
+    flake-utils.lib.eachDefaultSystem (system: let
+      pkgs = import nixpkgs {
+        inherit system;
+        overlays = [devshell.overlays.default fenix.overlays.default];
+      };
 
-        devShell = pkgs.devshell.mkShell {
-          name = "kak-tree-sitter-helix";
-          motd = "Entered kak-tree-sitter-helix development environment";
-          packages = [
-            (
-              pkgs.python311.withPackages (p: [
-                p.flake8
-                p.python-lsp-server
-                p.python-lsp-black
-              ])
-            )
-          ];
+      helix = {
+        version = "23.10-dev";
+        repo = pkgs.fetchFromGitHub {
+          owner = "helix-editor";
+          repo = "helix";
+          rev = "85fce2f5b6c9f35ab9d3361f3933288a28db83d4";
+          hash = "sha256-TNEsdsaCG1+PvGINrV/zw7emzwpfWiml4b77l2n5UEI=";
         };
-      }
-    );
+      };
+
+      kak-tree-sitter = {
+        rustPlatform,
+        git,
+      }:
+        rustPlatform.buildRustPackage rec {
+          version = (builtins.fromTOML (builtins.readFile "${src}/kak-tree-sitter/Cargo.toml")).package.version;
+          pname = "kak-tree-sitter";
+          src = pkgs.fetchFromGitHub {
+            owner = "hadronized";
+            repo = "kak-tree-sitter";
+            rev = "9fccddd14b66a63c2c93d4069fee6a51155e5a9e";
+            hash = "sha256-0xF0i+f1s5wdW/GfeuudaVSlSx74y5zLOV/5rP0UD8E=";
+          };
+          patches = [./9fccddd14b66a63c2c93d4069fee6a51155e5a9e.patch];
+          cargoLock = {
+            lockFile = "${src}/Cargo.lock";
+          };
+          # We only need to build kak-tree-sitter, no need to waste time on ktsctl.
+          cargoBuildFlags = ["--package=kak-tree-sitter"];
+          nativeBuildInputs = [git];
+        };
+      package = pkgs.callPackage kak-tree-sitter {};
+      grammars = pkgs.callPackage (import ./gen-grammars.nix {inherit helix;}) {};
+      final = pkgs.runCommandLocal "kak-tree-sitter-full" {} ''
+        mkdir -p $out/share/kak-tree-sitter
+
+        cp --dereference --recursive ${grammars}/grammars  $out/share/kak-tree-sitter/grammars
+        cp --dereference --recursive ${grammars}/queries   $out/share/kak-tree-sitter/queries
+        cp --dereference --recursive ${package}/bin        $out/bin
+      '';
+    in {
+      formatter = pkgs.alejandra;
+      packages.default = final;
+      apps.default = {
+        type = "app";
+        program = "${final}/bin/kak-tree-sitter";
+      };
+      devShell = pkgs.devshell.mkShell {
+        name = "kak-tree-sitter-helix";
+        motd = "Entered the kak-tree-sitter-helix development environment";
+        packages = let
+          rust = [(pkgs.fenix.stable.withComponents ["cargo" "clippy" "rust-analyzer" "rustfmt" "rust-src"])];
+          python = [(pkgs.python311.withPackages (p: [p.flake8 p.python-lsp-server p.python-lsp-black]))];
+        in
+          rust ++ python;
+      };
+    });
 }
