@@ -54,6 +54,7 @@
         };
       kts-package = pkgs.callPackage kak-tree-sitter {};
       kts-config = pkgs.callPackage (import ./gen-config.nix {inherit helix;}) {};
+      kts-themes = pkgs.callPackage (import ./gen-themes.nix {inherit helix;}) {};
       kts-grammars = pkgs.callPackage (import ./gen-grammars.nix {inherit helix;}) {};
     in {
       formatter = pkgs.alejandra;
@@ -80,6 +81,7 @@
         config = lib.mkIf config.programs.kak-tree-sitter-helix.enable {
           home.packages = [kts-package];
           xdg.configFile."kak-tree-sitter/config.toml".source = "${kts-config}/config.toml";
+          xdg.configFile."kak/colors".source = "${kts-themes}/colors";
           xdg.dataFile."kak-tree-sitter/grammars".source = "${kts-grammars}/grammars";
           xdg.dataFile."kak-tree-sitter/queries".source = "${kts-grammars}/queries";
         };
