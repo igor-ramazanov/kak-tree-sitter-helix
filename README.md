@@ -39,7 +39,7 @@ This will:
         {
           home-manager = {
             extraSpecialArgs = {
-              kak-tree-sitter-helix = kak-tree-sitter-helix.homeManagerModules.x86_64-linux.kak-tree-sitter-helix;
+              inherit (kak-tree-sitter-helix.homeManagerModules.x86_64-linux) kak-tree-sitter-helix;
             };
             users.MY_USERNAME = import ./home-manager.nix;
           };
