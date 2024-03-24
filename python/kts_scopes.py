@@ -1,3 +1,5 @@
+# kak-tree-sitter highlighting scopes.
+# https://github.com/hadronized/kak-tree-sitter/blob/e6cdebca0ff7247a4ffc9ffbb53cf5a82b4971ec/kak-tree-sitter/rc/static.kak#L143.
 kts_scopes = set(
     [
         "ts_attribute",

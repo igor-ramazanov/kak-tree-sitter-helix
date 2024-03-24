@@ -9,12 +9,19 @@ from kts_scopes import kts_scopes
 
 
 def convert(themes, theme):
+    """
+    Converts Helix theme to Kakoune.
+    """
     preprocessed = preprocess(themes, theme)
     kakoune_theme = process(preprocessed)
     return kakoune_theme
 
 
 def preprocess(themes, theme):
+    """
+    Resolves 'inherits' keys in Helix TOML theme,
+    by copying all parent keys into the child.
+    """
     if "inherits" in theme:
         parent = preprocess(themes, themes[theme["inherits"]])
         result = {}
@@ -42,6 +49,12 @@ def process(theme):
 
 
 def palette(theme):
+    """
+    Seeks for 'palette' TOML table in Helix theme,
+    and maps its keys to Kakoune's 'declare-option str'.
+
+    https://docs.helix-editor.com/themes.html#color-palettes.
+    """
     result = ""
     if "palette" in theme:
         colors = theme["palette"].items()
@@ -54,12 +67,26 @@ def palette(theme):
 
 
 def scopes(theme):
+    """
+    Maps Helix highlighting scopes to kak-tree-sitter.
+    Both are based on tree-sitter.
+
+    https://docs.helix-editor.com/themes.html#scopes
+    """
+
     def fallbacks(res):
+        """Explicitly sets all kak-tree-sitter highlighting scopes."""
         for key in kts_scopes:
+            # ts_keyword_control_conditional
             elements = key.split("_")
-            for n in reversed(range(2, len(elements))):
+            # [3, 2]
+            for n in reversed(range(2, len(elements))):  # 3, 2
+                # 3: ts_keyword_control_conditional, 2: ts_keyword_control
                 child = "_".join(elements[: n + 1])
+                # 3: ts_keyword_control, 2: ts_keyword
                 parent = "_".join(elements[:n])
+                # 3: {ts_keyword_control_conditional: ts_keyword_control}
+                # 2: {ts_keyword_control: ts_keyword}
                 res.update(dict([(child, res.get(child, parent))]))
 
     result = []
@@ -77,6 +104,11 @@ def scopes(theme):
 
 
 def scope_value(scope):
+    """
+    Maps Helix scope value to Kakoune.
+
+    https://docs.helix-editor.com/themes.html#overview.
+    """
     result = ""
     if isinstance(scope, str):
         result = color(scope)
@@ -114,6 +146,13 @@ def scope_value(scope):
 
 
 def color(c):
+    """
+    Maps Helix color definition to Kakoune.
+
+    https://docs.helix-editor.com/themes.html#color-palettes.
+
+    https://github.com/mawww/kakoune/blob/610d4114a92a31819f45b734dddb4f173b661168/doc/pages/faces.asciidoc.
+    """
     hx_ansi = {
         "black": "black",
         "gray": "bright-black",

@@ -1,3 +1,6 @@
+# Helix highlighting scopes.
+# https://docs.helix-editor.com/themes.html#scopes.
+
 hx_ts_scopes = set(
     [
         "attribute",
