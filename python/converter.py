@@ -6,6 +6,7 @@ import tomllib
 
 from hx_ts_scopes import hx_ts_scopes
 from kts_scopes import kts_scopes
+from hx_lsp import hx_lsp
 
 
 def convert(themes, theme):
@@ -34,6 +35,9 @@ def preprocess(themes, theme):
 
 
 def process(theme):
+    """
+    Builds a Kakoune theme from Helix.
+    """
     result = ""
     result += palette(theme)
 
@@ -44,7 +48,9 @@ def process(theme):
     s += f'set-face global Default {background[:-1]}@Default"\n'
     s += f'set-face global Default {text[:-1]}@Default"\n\n'
     result += s
+
     result += scopes(theme)
+    result += lsp(theme)
     return result
 
 
@@ -99,6 +105,24 @@ def scopes(theme):
     fallbacks(result)
     result = [f"set-face global {k} {v}" for k, v in result.items()]
     result = ["# kak-tree-sitter"] + sorted(result)
+    result = "\n".join(result)
+    return result
+
+
+def lsp(theme):
+    """
+    Maps Helix highlighting scopes to kakoune-lsp.
+
+    https://docs.helix-editor.com/themes.html#syntax-highlighting.
+
+    https://github.com/kakoune-lsp/kakoune-lsp/blob/6f89cac346a3f0e30f9de9b82d9c23c9656a50fb/rc/lsp.kak#L81.
+    """
+    result = []
+    for hx, lsp in hx_lsp.items():
+        if hx in theme:
+            result.append((lsp, scope_value(theme[hx])))
+    result = [f"set-face global {k} {v}" for k, v in result]
+    result = ["\n\n# kakoune-lsp"] + sorted(result)
     result = "\n".join(result)
     return result
 
