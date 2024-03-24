@@ -58,7 +58,12 @@
       kts-grammars = pkgs.callPackage (import ./nix/gen-grammars.nix {inherit helix;}) {};
     in {
       formatter = pkgs.alejandra;
-      packages.default = kts-package;
+      packages = {
+        default = kts-package;
+        config = kts-config;
+        themes = kts-themes;
+        grammars = kts-grammars;
+      };
       apps.default = {
         type = "app";
         program = "${kts-package}/bin/kak-tree-sitter";

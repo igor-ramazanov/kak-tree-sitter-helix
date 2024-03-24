@@ -4,15 +4,15 @@
 # 1. ReferenceBind
 # 2. InlayCodeLens
 
-hx_to_lsp = {
+hx_lsp = {
     "warning": "LineFlagWarning",
     "error": "LineFlagError",
     "info": "LineFlagInfo",
     "hint": "LineFlagHint",
     "diagnostic.hint": "DiagnosticHint",
-    "diagnostic.info": "DiagnosticHint",
-    "diagnostic.warning": "DiagnosticHint",
-    "diagnostic.error": "DiagnosticHint",
+    "diagnostic.info": "DiagnosticInfo",
+    "diagnostic.warning": "DiagnosticWarning",
+    "diagnostic.error": "DiagnosticError",
     "ui.cursor.match": "Reference",
     "ui.virtual.inlay-hint": "InlayHint",
 }

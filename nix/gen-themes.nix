@@ -1,7 +1,6 @@
 {helix}: {
   stdenv,
   python311,
-  lib,
   ...
 }:
 stdenv.mkDerivation {
