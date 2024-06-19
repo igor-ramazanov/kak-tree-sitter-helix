@@ -55,9 +55,9 @@
           nativeBuildInputs = [ git ];
         };
       kts-package = pkgs.callPackage kak-tree-sitter { };
-      kts-config = pkgs.callPackage (import ./nix/gen-config.nix { inherit helix; }) { };
-      kts-themes = pkgs.callPackage (import ./nix/gen-themes.nix { inherit helix; }) { };
       kts-grammars = pkgs.callPackage (import ./nix/gen-grammars.nix { inherit helix; }) { };
+      kts-config = pkgs.callPackage (import ./nix/gen-config.nix { inherit helix kts-grammars; }) { };
+      kts-themes = pkgs.callPackage (import ./nix/gen-themes.nix { inherit helix; }) { };
     in
     {
       formatter = pkgs.alejandra;

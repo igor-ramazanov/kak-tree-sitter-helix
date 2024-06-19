@@ -1,4 +1,4 @@
-{ helix }: { pkgs, ... }:
+{ helix, kts-grammars }: { pkgs, ... }:
 let
   groups = [
     "attribute"
@@ -100,7 +100,14 @@ let
   ];
 
   # Even though we use Helix to compile grammars, we still need the config.toml, otherwise kak-tree-sitter will fail.
-  queries = builtins.attrNames (builtins.readDir "${helix.repo}/runtime/queries");
+  queries =
+    builtins.filter
+      (language:
+        builtins.substring 0 1 language != "_"
+      )
+      (builtins.attrNames
+        (builtins.readDir "${helix.repo}/runtime/queries")
+      );
   languages =
     builtins.map
       (n: {
@@ -113,12 +120,10 @@ let
           grammar.link_args = [ ];
           grammar.link_flags = [ ];
           grammar.path = "";
-          grammar.source.git.pin = "";
-          grammar.source.git.url = "";
+          grammar.source.local.path = "${kts-grammars}/grammars/${n}.so";
           remove_default_higlighter = true;
           queries.path = "";
-          queries.source.git.pin = "";
-          queries.source.git.url = "";
+          queries.source.local.path = "${kts-grammars}/queries/${n}";
         };
       })
       queries;
