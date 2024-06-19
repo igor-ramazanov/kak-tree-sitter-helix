@@ -1,4 +1,5 @@
-{helix}: {pkgs, ...}: let
+{ helix }: { pkgs, ... }:
+let
   groups = [
     "attribute"
     "comment"
@@ -80,7 +81,6 @@
     "special"
     "string"
     "string.escape"
-    "string.regex"
     "string.regexp"
     "string.special"
     "string.special.path"
@@ -95,7 +95,6 @@
     "variable"
     "variable.builtin"
     "variable.other.member"
-    "variable.other.member"
     "variable.parameter"
     "warning"
   ];
@@ -103,34 +102,36 @@
   # Even though we use Helix to compile grammars, we still need the config.toml, otherwise kak-tree-sitter will fail.
   queries = builtins.attrNames (builtins.readDir "${helix.repo}/runtime/queries");
   languages =
-    builtins.map (n: {
-      name = "${n}";
-      value = {
-        grammar = {
-          url = "";
-          pin = "";
-          path = "";
-          compile = "";
-          compile_args = [];
-          compile_flags = [];
-          link = "";
-          link_args = [];
-          link_flags = [];
+    builtins.map
+      (n: {
+        name = "${n}";
+        value = {
+          grammar.compile = "";
+          grammar.compile_args = [ ];
+          grammar.compile_flags = [ ];
+          grammar.link = "";
+          grammar.link_args = [ ];
+          grammar.link_flags = [ ];
+          grammar.path = "";
+          grammar.source.git.pin = "";
+          grammar.source.git.url = "";
+          queries.path = "";
+          queries.source.git.pin = "";
+          queries.source.git.url = "";
         };
-        queries = {
-          url = "";
-          pin = "";
-          path = "";
-        };
-      };
-    })
-    queries;
-  config = (pkgs.formats.toml {}).generate "kak-tree-sitter-config.toml" {
+      })
+      queries;
+  config = (pkgs.formats.toml { }).generate "kak-tree-sitter-config.toml" {
     language = builtins.listToAttrs languages;
-    highlight = {inherit groups;};
+    highlight = { inherit groups; };
+    features = {
+      highlighting = true;
+      text_objects = false;
+    };
   };
 in
-  pkgs.runCommandLocal "kak-tree-sitter-config" {} ''
-    mkdir $out
-    ln -s ${config} $out/config.toml
-  ''
+pkgs.runCommandLocal "kak-tree-sitter-config" { } ''
+  mkdir $out
+  ln -s ${config} $out/config.toml
+''
+
