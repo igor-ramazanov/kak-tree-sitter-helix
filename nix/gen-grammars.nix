@@ -1,37 +1,38 @@
 # Fetch and build grammars from https://github.com/helix-editor/helix/languages.toml.
 # The code is borrowed and reworked from: https://github.com/helix-editor/helix/blob/85fce2f5b6c9f35ab9d3361f3933288a28db83d4/grammars.nix.
-{helix}: {
-  stdenv,
-  lib,
-  fetchFromGitHub,
-  ...
-}: let
+{ helix }: { stdenv
+           , lib
+           , ...
+           }:
+let
   buildGrammar = grammar:
     stdenv.mkDerivation {
       # See: https://github.com/NixOS/nixpkgs/blob/fbdd1a7c0bc29af5325e0d7dd70e804a972eb465/pkgs/development/tools/parsing/tree-sitter/grammar.nix.
       pname = "tree-sitter-${grammar.name}";
       version = grammar.source.rev;
 
-      src = let
-        isGitHubGrammar = grammar: lib.hasPrefix "https://github.com" grammar.source.git;
-        sourceGitHub = let
-          match = builtins.match "https://github\.com/([^/]*)/([^/]*)/?" grammar.source.git;
-          owner = builtins.elemAt match 0;
-          repo = builtins.elemAt match 1;
-        in
-          builtins.fetchTree {
-            inherit (grammar.source) rev;
-            inherit owner repo;
-            type = "github";
+      src =
+        let
+          isGitHubGrammar = grammar: lib.hasPrefix "https://github.com" grammar.source.git;
+          sourceGitHub =
+            let
+              match = builtins.match "https://github\.com/([^/]*)/([^/]*)/?" grammar.source.git;
+              owner = builtins.elemAt match 0;
+              repo = builtins.elemAt match 1;
+            in
+            builtins.fetchTree {
+              inherit (grammar.source) rev;
+              inherit owner repo;
+              type = "github";
+            };
+          sourceGit = builtins.fetchTree {
+            type = "git";
+            url = grammar.source.git;
+            rev = grammar.source.rev;
+            ref = grammar.source.ref or "HEAD";
+            shallow = true;
           };
-        sourceGit = builtins.fetchTree {
-          type = "git";
-          url = grammar.source.git;
-          rev = grammar.source.rev;
-          ref = grammar.source.ref or "HEAD";
-          shallow = true;
-        };
-      in
+        in
         if isGitHubGrammar grammar
         then sourceGitHub
         else sourceGit;
@@ -86,17 +87,18 @@
       '';
     };
 in
-  stdenv.mkDerivation rec {
-    pname = "consolidated-grammars";
-    version = helix.version;
+stdenv.mkDerivation rec {
+  pname = "consolidated-grammars";
+  version = helix.version;
 
-    src = helix.repo;
+  src = helix.repo;
 
-    dontUnpack = true;
-    dontPatch = true;
-    dontConfigure = true;
+  dontUnpack = true;
+  dontPatch = true;
+  dontConfigure = true;
 
-    buildPhase = let
+  buildPhase =
+    let
       languagesConfig = builtins.fromTOML (builtins.readFile "${src}/languages.toml");
       isGitGrammar = grammar:
         builtins.hasAttr "source" grammar
@@ -104,18 +106,20 @@ in
         && builtins.hasAttr "rev" grammar.source;
       gitGrammars = builtins.filter isGitGrammar languagesConfig.grammar;
       builtGrammars =
-        builtins.map (grammar: {
-          inherit (grammar) name;
-          value = buildGrammar grammar;
-        })
-        gitGrammars;
+        builtins.map
+          (grammar: {
+            inherit (grammar) name;
+            value = buildGrammar grammar;
+          })
+          gitGrammars;
       grammarLinks =
         lib.mapAttrsToList
-        (name: artifact: "ln -s ${artifact}/${name}.so $out/grammars/${name}.so")
-        (lib.filterAttrs (n: v: lib.isDerivation v) (builtins.listToAttrs builtGrammars));
-    in ''
+          (name: artifact: "ln -s ${artifact}/${name}.so $out/grammars/${name}.so")
+          (lib.filterAttrs (n: v: lib.isDerivation v) (builtins.listToAttrs builtGrammars));
+    in
+    ''
       mkdir -p $out/grammars
       ${builtins.concatStringsSep "\n" grammarLinks}
       ln -s ${src}/runtime/queries $out/queries
-    '';
-  }
+    '';}
+
