@@ -132,7 +132,7 @@ let
     highlight = { inherit groups; };
     features = {
       highlighting = true;
-      text_objects = false;
+      text_objects = true;
     };
   };
 in
