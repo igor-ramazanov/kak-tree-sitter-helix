@@ -2,7 +2,6 @@
   description = "kak-tree-sitter + helix = ❤";
 
   inputs = {
-    devshell.url = "github:numtide/devshell";
     fenix.inputs.nixpkgs.follows = "nixpkgs";
     fenix.url = "github:nix-community/fenix";
     flake-utils.url = "github:numtide/flake-utils";
@@ -10,8 +9,7 @@
   };
 
   outputs =
-    { devshell
-    , fenix
+    { fenix
     , flake-utils
     , nixpkgs
     , ...
@@ -20,7 +18,7 @@
     let
       pkgs = import nixpkgs {
         inherit system;
-        overlays = [ devshell.overlays.default fenix.overlays.default ];
+        overlays = [ fenix.overlays.default ];
       };
 
       helix = {
@@ -41,11 +39,11 @@
         rustPlatform.buildRustPackage rec {
           version = (builtins.fromTOML (builtins.readFile "${src}/kak-tree-sitter/Cargo.toml")).package.version;
           pname = "kak-tree-sitter";
-          src = pkgs.fetchFromSourcehut {
-            owner = "~hadronized";
+          src = pkgs.fetchFromGitHub {
+            owner = "hadronized";
             repo = "kak-tree-sitter";
-            rev = "1bbd49b74e1224d860310426d92c5d505f5e9da3";
-            hash = "sha256-VNfegTKypCRZ6c4kl49jcgHpcKghN4z9906gWMlkih0=";
+            rev = "955b31df81532fc67a2e56279457d587f1d615fb";
+            hash = "sha256-LuFI0tRtZZ9C6xKRUbSzE/oI8Z7djo7RvF5xM8776gI=";
           };
           cargoLock = {
             lockFile = "${src}/Cargo.lock";
@@ -70,16 +68,6 @@
       apps.default = {
         type = "app";
         program = "${kts-package}/bin/kak-tree-sitter";
-      };
-      devShell = pkgs.devshell.mkShell {
-        name = "kak-tree-sitter-helix";
-        motd = "Entered the kak-tree-sitter-helix development environment";
-        packages =
-          let
-            rust = [ (pkgs.fenix.stable.withComponents [ "cargo" "clippy" "rust-analyzer" "rustfmt" "rust-src" ]) ];
-            python = [ (pkgs.python311.withPackages (p: [ p.flake8 p.python-lsp-server p.python-lsp-black ])) ];
-          in
-          rust ++ python;
       };
       homeManagerModules.kak-tree-sitter-helix =
         { config

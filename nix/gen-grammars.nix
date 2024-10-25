@@ -46,7 +46,6 @@ let
 
       FLAGS = [
         "-Isrc"
-        "-g"
         "-O3"
         "-fPIC"
         "-fno-exceptions"
