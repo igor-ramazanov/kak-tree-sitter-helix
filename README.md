@@ -4,16 +4,18 @@ Python and Nix scripts to generate [kak-tree-sitter](https://github.com/phaazon/
 ## Usage
 Nix flakes + [`home-manager`](https://nix-community.github.io/home-manager/index.xhtml) module only for now, because that's what I use.
 
-1. Add the this flake to flake inputs.
+1. Add this flake url to flake inputs.
 2. Pass the home-manager module to `extraSpecialArgs`.
 3. Import it: `import = [...];`.
-4. `programs.kak-tree-sitter-helix.enable = true;`
+4. In home-manager config file, set `programs.kak-tree-sitter-helix.enable = true;`
 
 This will:
 1. Add `kak-tree-sitter` package to your `home.packages`.
 1. Create `$XDG_CONFIG_HOME/kak-tree-sitter/config.toml` file.
 1. Create `$XDG_CONFIG_HOME/kak/colors` dir with themes.
 1. Create `$XDG_DATA_DIR/kak-tree-sitter` dir with grammars and queries.
+
+### Using home-manager as nixos module
 
 ```nix
 # flake.nix
@@ -49,19 +51,55 @@ This will:
   }
 }
 
-# home-manager.nix
+```
+
+### Using home-manager as standalone option
+
+```nix
+# flake.nix
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    home-manager = {
+      url = "github:nix-community/home-manager";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+    kak-tree-sitter-helix.url = "github:igor-ramazanov/kak-tree-sitter-helix";
+    kak-tree-sitter-helix.inputs.nixpkgs.follows = "nixpkgs";
+  };
+
+  outputs = { nixpkgs, home-manager, kak-tree-sitter-helix, ... }:
+    let
+      system = "x86_64-linux";
+      pkgs = nixpkgs.legacyPackages.${system};
+    in {
+      homeConfigurations."username" = home-manager.lib.homeManagerConfiguration {
+        inherit pkgs;
+        modules = [ 
+        ./home.nix 
+        ];
+        extraSpecialArgs = {
+          inherit (kak-tree-sitter-helix.homeManagerModules.x86_64-linux) kak-tree-sitter-helix;
+        };
+      };
+    };
+```
+
+### Then in home.nix or home-manager.nix
+
+```nix
 {kak-tree-sitter-helix,...}: {
   imports = [kak-tree-sitter-helix];
   programs.kak-tree-sitter-helix.enable = true;
 }
 ```
 
-Make sure you have the following code somewhere in `$XDG_CONFIG_DIR/kak/autoload`:
+Make sure you have the following code somewhere in `$XDG_CONFIG_DIR/kak/autoload` or in `$XDG_CONFIG_DIR/kak/kakrc`:
 ```KakScript
-eval %sh{ kak-tree-sitter --kakoune --daemonize --server --session $kak_session }
+eval %sh{ kak-tree-sitter -dks --init $kak_session }
 colorscheme termcolors # Unnecessary, read below.
 colorscheme catppuccin-latte # Or any other theme from $XDG_CONFIG_DIR/kak/colors.
 ```
+For more information on kak-tree-sitter flags visit [usage manual](https://github.com/hadronized/kak-tree-sitter/blob/master/docs/man/usage.md).
 
 ### termcolors.kak
 The `$XDG_CONFIG_DIR/kak/colors/termcolors.kak` opinionatedly sets default Kakoune faces using ANSI terminal colors.\
