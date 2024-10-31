@@ -20,13 +20,13 @@
         overlays = [fenix.overlays.default];
       };
 
-      helix = {
-        version = "23.10-dev";
+      helix = rec {
+        version = "24.07";
         repo = pkgs.fetchFromGitHub {
           owner = "helix-editor";
           repo = "helix";
-          rev = "9b7dffbd613b3ba981890de78712ac0df520f145";
-          hash = "sha256-j9h28WtYUswzsF/mwm7DJMxCPleloFrGUsnuysyE0OQ=";
+          rev = version;
+          hash = "sha256-lKsjgqQAh1Pfo57T9N29YOsbJp/Fl5tOTxV5Fn4xFLg=";
         };
       };
 
