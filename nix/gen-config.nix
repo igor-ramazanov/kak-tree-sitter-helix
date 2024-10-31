@@ -1,3 +1,4 @@
+# Even though we use Helix to compile grammars, we still need the config.toml, otherwise kak-tree-sitter will fail.
 {
   helix,
   kts-grammars,
@@ -101,21 +102,13 @@
     "warning"
   ];
 
-  # Even though we use Helix to compile grammars, we still need the config.toml, otherwise kak-tree-sitter will fail.
-  queries =
-    builtins.filter
-    (
-      language:
-        builtins.substring 0 1 language != "_"
-    )
-    (
-      builtins.attrNames
-      (builtins.readDir "${helix.repo}/runtime/queries")
-    );
+  languagesConfig =
+    builtins.fromTOML (builtins.readFile "${helix.repo}/languages.toml");
+
   languages =
     builtins.map
-    (n: {
-      name = "${n}";
+    (lang: {
+      name = "${lang.name}";
       value = {
         grammar.compile = "";
         grammar.compile_args = [];
@@ -124,13 +117,13 @@
         grammar.link_args = [];
         grammar.link_flags = [];
         grammar.path = "";
-        grammar.source.local.path = "${kts-grammars}/grammars/${n}.so";
-        remove_default_higlighter = true;
+        grammar.source.local.path = "${kts-grammars}/grammars/${lang.grammar or lang.name}.so";
+        remove_default_highlighter = true;
         queries.path = "";
-        queries.source.local.path = "${kts-grammars}/queries/${n}";
+        queries.source.local.path = "${kts-grammars}/queries/${lang.name}";
       };
     })
-    queries;
+    languagesConfig.language;
   config = (pkgs.formats.toml {}).generate "kak-tree-sitter-config.toml" {
     language = builtins.listToAttrs languages;
     highlight = {inherit groups;};
