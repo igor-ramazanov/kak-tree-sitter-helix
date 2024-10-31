@@ -1,5 +1,7 @@
-{ helix, kts-grammars }: { pkgs, ... }:
-let
+{
+  helix,
+  kts-grammars,
+}: {pkgs, ...}: let
   groups = [
     "attribute"
     "comment"
@@ -102,42 +104,43 @@ let
   # Even though we use Helix to compile grammars, we still need the config.toml, otherwise kak-tree-sitter will fail.
   queries =
     builtins.filter
-      (language:
+    (
+      language:
         builtins.substring 0 1 language != "_"
-      )
-      (builtins.attrNames
-        (builtins.readDir "${helix.repo}/runtime/queries")
-      );
+    )
+    (
+      builtins.attrNames
+      (builtins.readDir "${helix.repo}/runtime/queries")
+    );
   languages =
     builtins.map
-      (n: {
-        name = "${n}";
-        value = {
-          grammar.compile = "";
-          grammar.compile_args = [ ];
-          grammar.compile_flags = [ ];
-          grammar.link = "";
-          grammar.link_args = [ ];
-          grammar.link_flags = [ ];
-          grammar.path = "";
-          grammar.source.local.path = "${kts-grammars}/grammars/${n}.so";
-          remove_default_higlighter = true;
-          queries.path = "";
-          queries.source.local.path = "${kts-grammars}/queries/${n}";
-        };
-      })
-      queries;
-  config = (pkgs.formats.toml { }).generate "kak-tree-sitter-config.toml" {
+    (n: {
+      name = "${n}";
+      value = {
+        grammar.compile = "";
+        grammar.compile_args = [];
+        grammar.compile_flags = [];
+        grammar.link = "";
+        grammar.link_args = [];
+        grammar.link_flags = [];
+        grammar.path = "";
+        grammar.source.local.path = "${kts-grammars}/grammars/${n}.so";
+        remove_default_higlighter = true;
+        queries.path = "";
+        queries.source.local.path = "${kts-grammars}/queries/${n}";
+      };
+    })
+    queries;
+  config = (pkgs.formats.toml {}).generate "kak-tree-sitter-config.toml" {
     language = builtins.listToAttrs languages;
-    highlight = { inherit groups; };
+    highlight = {inherit groups;};
     features = {
       highlighting = true;
       text_objects = true;
     };
   };
 in
-pkgs.runCommandLocal "kak-tree-sitter-config" { } ''
-  mkdir $out
-  ln -s ${config} $out/config.toml
-''
-
+  pkgs.runCommandLocal "kak-tree-sitter-config" {} ''
+    mkdir $out
+    ln -s ${config} $out/config.toml
+  ''
