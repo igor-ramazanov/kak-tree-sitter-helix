@@ -116,6 +116,7 @@
         grammar.link = "";
         grammar.link_args = [];
         grammar.link_flags = [];
+        grammar.name = lang.grammar or lang.name;
         grammar.path = "";
         grammar.source.local.path = "${kts-grammars}/grammars/${lang.grammar or lang.name}.so";
         remove_default_highlighter = true;
