@@ -3,6 +3,7 @@
 {helix}: {
   stdenv,
   lib,
+  pkgs,
   ...
 }: let
   buildGrammar = grammar:
@@ -91,6 +92,9 @@ in
     dontPatch = true;
     dontConfigure = true;
 
+    # needed for the `rev` command below
+    nativeBuildInputs = [pkgs.util-linux];
+
     buildPhase = let
       languagesConfig =
         builtins.fromTOML (builtins.readFile "${src}/languages.toml");
@@ -110,9 +114,51 @@ in
         (name: artifact: "ln -s ${artifact}/${name}.so $out/grammars/${name}.so")
         (lib.filterAttrs (n: v: lib.isDerivation v)
           (builtins.listToAttrs builtGrammars));
+      resolveInheritedQueries = ''
+        set +e
+
+        resolve_inherited_queries() {
+          file="$1"
+          content="$(cat "$file")"
+
+          regexp=";+\s*inherits\s*:?\s*([a-z_,()-]+)\s*"
+
+          cat $file | grep --extended-regexp "$regexp" --quiet
+          extends=$?
+
+          if [ $extends -eq 0 ]
+          then
+            language="$(echo "$file" | rev | cut --delimiter='/' --fields=2 | rev)"
+            query_file="$(echo "$file" | rev | cut --delimiter='/' --fields=1 | rev)"
+            parent_languages="$(cat $file | sed --regexp-extended --quiet "s/$regexp/\\1/p")"
+            IFS=','
+            for parent_language in $parent_languages
+            do
+              parent_content="$(resolve_inherited_queries "${src}/runtime/queries/$parent_language/$query_file")"
+              content="$(printf '%s\n%s' "$parent_content" "$content")"
+            done
+            echo "$content"
+          else
+            echo "$content"
+          fi
+        }
+
+        for file in $(find ${src}/runtime/queries/ -type f -name '*.scm')
+        do
+          lang="$(echo "$file" | rev | cut --delimiter='/' --fields=2 | rev)"
+          query_file="$(echo "$file" | rev | cut --delimiter='/' --fields=1 | rev)"
+          mkdir -p "$out/queries/$lang"
+          resolve_inherited_queries "$file" > "$out/queries/$lang/$query_file"
+        done
+
+        set -e
+      '';
     in ''
       mkdir -p $out/grammars
+      mkdir -p $out/queries
+
       ${builtins.concatStringsSep "\n" grammarLinks}
-      ln -s ${src}/runtime/queries $out/queries
+
+      ${resolveInheritedQueries}
     '';
   }
