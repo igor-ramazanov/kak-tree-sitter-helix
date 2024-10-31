@@ -105,6 +105,17 @@
   languagesConfig =
     builtins.fromTOML (builtins.readFile "${helix.repo}/languages.toml");
 
+  isGitGrammar = grammar:
+    builtins.hasAttr "source" grammar
+    && builtins.hasAttr "git" grammar.source
+    && builtins.hasAttr "rev" grammar.source;
+
+  gitGrammars = builtins.map (g: g.name) (builtins.filter isGitGrammar languagesConfig.grammar);
+
+  filteredLanguages =
+    builtins.filter (l: (builtins.elem (l.grammar or l.name) gitGrammars))
+    languagesConfig.language;
+
   languages =
     builtins.map
     (lang: {
@@ -124,7 +135,7 @@
         queries.source.local.path = "${kts-grammars}/queries/${lang.name}";
       };
     })
-    languagesConfig.language;
+    filteredLanguages;
   config = (pkgs.formats.toml {}).generate "kak-tree-sitter-config.toml" {
     language = builtins.listToAttrs languages;
     highlight = {inherit groups;};
