@@ -4,7 +4,7 @@
   ...
 }:
 stdenv.mkDerivation {
-  pname = "kak-tree-sitter-helix-themes";
+  pname = "kak-tree-sitter-themes";
   version = helix.version;
   src = ./../python;
   buildInputs = [python311];

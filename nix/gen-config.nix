@@ -1,7 +1,7 @@
 # Even though we use Helix to compile grammars, we still need the config.toml, otherwise kak-tree-sitter will fail.
 {
   helix,
-  kts-grammars,
+  kak-tree-sitter-grammars,
 }: {pkgs, ...}: let
   groups = [
     "attribute"
@@ -129,10 +129,10 @@
         grammar.link_flags = [];
         grammar.name = lang.grammar or lang.name;
         grammar.path = "";
-        grammar.source.local.path = "${kts-grammars}/grammars/${lang.grammar or lang.name}.so";
+        grammar.source.local.path = "${kak-tree-sitter-grammars}/grammars/${lang.grammar or lang.name}.so";
         remove_default_highlighter = true;
         queries.path = "";
-        queries.source.local.path = "${kts-grammars}/queries/${lang.name}";
+        queries.source.local.path = "${kak-tree-sitter-grammars}/queries/${lang.name}";
       };
     })
     filteredLanguages;

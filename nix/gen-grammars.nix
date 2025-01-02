@@ -83,7 +83,7 @@
     };
 in
   stdenv.mkDerivation rec {
-    pname = "consolidated-grammars";
+    pname = "kak-tree-sitter-grammars";
     version = helix.version;
 
     src = helix.repo;
