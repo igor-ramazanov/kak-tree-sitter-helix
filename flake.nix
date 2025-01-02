@@ -30,7 +30,7 @@
         };
       };
 
-      kak-tree-sitter = {
+      kak-tree-sitter-unwrapped = pkgs.callPackage ({
         rustPlatform,
         git,
       }:
@@ -52,27 +52,72 @@
           # We only need to build kak-tree-sitter, no need to waste time on ktsctl.
           cargoBuildFlags = ["--package=kak-tree-sitter"];
           nativeBuildInputs = [git];
-        };
-      kts-package = pkgs.callPackage kak-tree-sitter {};
-      kts-grammars =
+        }) {};
+
+      kak-tree-sitter-grammars =
         pkgs.callPackage (import ./nix/gen-grammars.nix {inherit helix;})
         {};
-      kts-config =
+
+      kak-tree-sitter-config =
         pkgs.callPackage
-        (import ./nix/gen-config.nix {inherit helix kts-grammars;}) {};
-      kts-themes =
+        (import ./nix/gen-config.nix {inherit helix kak-tree-sitter-grammars;}) {};
+
+      kak-tree-sitter-themes =
         pkgs.callPackage (import ./nix/gen-themes.nix {inherit helix;}) {};
+
+      kak-tree-sitter-derivation = {
+        kak-tree-sitter-config,
+        kak-tree-sitter-grammars,
+        kak-tree-sitter-unwrapped,
+        makeWrapper,
+        symlinkJoin,
+      }:
+        symlinkJoin {
+          name = "kak-tree-sitter";
+          nativeBuildInputs = [makeWrapper];
+          paths = [
+            kak-tree-sitter-config
+            kak-tree-sitter-grammars
+            kak-tree-sitter-unwrapped
+          ];
+
+          postBuild = ''
+            mkdir -p $out/bin
+            mkdir -p $out/config/kak-tree-sitter
+            mkdir -p $out/share/kak-tree-sitter/grammars
+            mkdir -p $out/share/kak-tree-sitter/queries
+
+            rm -rf $out/bin/kak-tree-sitter
+            rm -rf $out/config.toml
+            rm -rf $out/grammars
+            rm -rf $out/queries
+
+            ln -s ${kak-tree-sitter-config}/config.toml $out/config/kak-tree-sitter/config.toml
+            ln -s ${kak-tree-sitter-grammars}/grammars $out/share/kak-tree-sitter/grammars
+            ln -s ${kak-tree-sitter-grammars}/queries $out/share/kak-tree-sitter/queries
+
+            makeWrapper ${kak-tree-sitter-unwrapped}/bin/kak-tree-sitter $out/bin/kak-tree-sitter \
+              --set XDG_DATA_HOME "$out/share" \
+              --set XDG_CONFIG_HOME "$out/config"
+          '';
+        };
+
+      kak-tree-sitter = pkgs.callPackage kak-tree-sitter-derivation {
+        inherit
+          kak-tree-sitter-config
+          kak-tree-sitter-grammars
+          kak-tree-sitter-unwrapped
+          ;
+      };
     in {
       formatter = pkgs.alejandra;
       packages = {
-        default = kts-package;
-        config = kts-config;
-        themes = kts-themes;
-        grammars = kts-grammars;
+        default = kak-tree-sitter;
+        themes = kak-tree-sitter-themes;
       };
       apps.default = {
         type = "app";
-        program = "${kts-package}/bin/kak-tree-sitter";
+        program = "${kak-tree-sitter}/bin/kak-tree-sitter";
       };
       homeManagerModules.kak-tree-sitter-helix = {
         config,
@@ -82,11 +127,8 @@
         options.programs.kak-tree-sitter-helix.enable =
           lib.options.mkEnableOption "Enable kak-tree-sitter-helix";
         config = lib.mkIf config.programs.kak-tree-sitter-helix.enable {
-          home.packages = [kts-package];
-          xdg.configFile."kak-tree-sitter/config.toml".source = "${kts-config}/config.toml";
-          xdg.configFile."kak/colors".source = "${kts-themes}/colors";
-          xdg.dataFile."kak-tree-sitter/grammars".source = "${kts-grammars}/grammars";
-          xdg.dataFile."kak-tree-sitter/queries".source = "${kts-grammars}/queries";
+          home.packages = [kak-tree-sitter];
+          xdg.configFile."kak/colors".source = "${kak-tree-sitter-themes}/colors";
         };
       };
     });
