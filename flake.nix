@@ -21,12 +21,12 @@
       };
 
       helix = rec {
-        version = "24.07";
+        version = "25.01.1";
         repo = pkgs.fetchFromGitHub {
           owner = "helix-editor";
           repo = "helix";
           rev = version;
-          hash = "sha256-lKsjgqQAh1Pfo57T9N29YOsbJp/Fl5tOTxV5Fn4xFLg=";
+          hash = "sha256-wGfX2YcD9Hyqi7sQ8FSqUbN8/Rhftp01YyHoTWYPL8U=";
         };
       };
 
