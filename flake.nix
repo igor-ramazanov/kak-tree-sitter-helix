@@ -30,72 +30,53 @@
         };
       };
 
-      kak-tree-sitter-unwrapped = pkgs.callPackage ({
-        rustPlatform,
-        git,
-      }:
-        rustPlatform.buildRustPackage rec {
-          version =
-            (builtins.fromTOML (builtins.readFile
-                "${src}/kak-tree-sitter/Cargo.toml"))
-            .package
-            .version;
-          pname = "kak-tree-sitter";
-          src = pkgs.fetchFromGitHub {
-            owner = "hadronized";
-            repo = "kak-tree-sitter";
-            rev = "955b31df81532fc67a2e56279457d587f1d615fb";
-            hash = "sha256-LuFI0tRtZZ9C6xKRUbSzE/oI8Z7djo7RvF5xM8776gI=";
-          };
-          patches = [./kts.patch];
-          cargoLock = {lockFile = "${src}/Cargo.lock";};
-          # We only need to build kak-tree-sitter, no need to waste time on ktsctl.
-          cargoBuildFlags = ["--package=kak-tree-sitter"];
-          nativeBuildInputs = [git];
-        }) {};
+      kak-tree-sitter-unwrapped =
+        pkgs.callPackage
+        ./nix/kak-tree-sitter-package.nix {};
 
       kak-tree-sitter-grammars =
-        pkgs.callPackage (import ./nix/gen-grammars.nix {inherit helix;})
-        {};
+        pkgs.callPackage
+        (import ./nix/gen-grammars.nix {inherit helix;}) {};
 
       kak-tree-sitter-config =
         pkgs.callPackage
         (import ./nix/gen-config.nix {inherit helix kak-tree-sitter-grammars;}) {};
 
       kak-tree-sitter-themes =
-        pkgs.callPackage (import ./nix/gen-themes.nix {inherit helix;}) {};
+        pkgs.callPackage
+        (import ./nix/gen-themes.nix {inherit helix;}) {};
 
       kak-tree-sitter-derivation = {
         kak-tree-sitter-config,
         kak-tree-sitter-grammars,
         kak-tree-sitter-unwrapped,
         makeWrapper,
-        symlinkJoin,
+        stdenv,
       }:
-        symlinkJoin {
+        stdenv.mkDerivation {
           name = "kak-tree-sitter";
-          nativeBuildInputs = [makeWrapper];
-          paths = [
+          nativeBuildInputs = [
+            # Listing dependencies to make it easier for `nix bundle` to get a closure
+            # NOTE: May not be needed
             kak-tree-sitter-config
             kak-tree-sitter-grammars
             kak-tree-sitter-unwrapped
+            makeWrapper
           ];
-
-          postBuild = ''
+          # A trick to avoid erroring out due to empty `src`
+          unpackPhase = "true";
+          buildPhase = ''
+            # kak-tree-sitter expects certain directory structure to find config, grammars and queries
             mkdir -p $out/bin
             mkdir -p $out/config/kak-tree-sitter
-            mkdir -p $out/share/kak-tree-sitter/grammars
-            mkdir -p $out/share/kak-tree-sitter/queries
+            mkdir -p $out/share/kak-tree-sitter/
+            mkdir -p $out/share/kak-tree-sitter/
 
-            rm -rf $out/bin/kak-tree-sitter
-            rm -rf $out/config.toml
-            rm -rf $out/grammars
-            rm -rf $out/queries
+            cp             ${kak-tree-sitter-config}/config.toml $out/config/kak-tree-sitter/config.toml
+            cp --recursive ${kak-tree-sitter-grammars}/grammars $out/share/kak-tree-sitter/
+            cp --recursive ${kak-tree-sitter-grammars}/queries $out/share/kak-tree-sitter/
 
-            ln -s ${kak-tree-sitter-config}/config.toml $out/config/kak-tree-sitter/config.toml
-            ln -s ${kak-tree-sitter-grammars}/grammars $out/share/kak-tree-sitter/grammars
-            ln -s ${kak-tree-sitter-grammars}/queries $out/share/kak-tree-sitter/queries
-
+            # Wrapping the normal kak-tree-sitter binary pointing it to the generated config, grammars and queries
             makeWrapper ${kak-tree-sitter-unwrapped}/bin/kak-tree-sitter $out/bin/kak-tree-sitter \
               --set XDG_DATA_HOME "$out/share" \
               --set XDG_CONFIG_HOME "$out/config"
@@ -111,14 +92,17 @@
       };
     in {
       formatter = pkgs.alejandra;
+
       packages = {
         default = kak-tree-sitter;
         themes = kak-tree-sitter-themes;
       };
+
       apps.default = {
         type = "app";
         program = "${kak-tree-sitter}/bin/kak-tree-sitter";
       };
+
       homeManagerModules.kak-tree-sitter-helix = {
         config,
         lib,
@@ -126,9 +110,35 @@
       }: {
         options.programs.kak-tree-sitter-helix.enable =
           lib.options.mkEnableOption "Enable kak-tree-sitter-helix";
+
         config = lib.mkIf config.programs.kak-tree-sitter-helix.enable {
           home.packages = [kak-tree-sitter];
           xdg.configFile."kak/colors".source = "${kak-tree-sitter-themes}/colors";
+        };
+      };
+
+      nixosModules.kak-tree-sitter-helix = {
+        config,
+        lib,
+        ...
+      }: let
+        cfg = config.programs.kak-tree-sitter-helix;
+      in {
+        options.programs.kak-tree-sitter-helix = {
+          enable =
+            lib.options.mkEnableOption "Enable kak-tree-sitter-helix";
+
+          user = lib.mkOption {
+            type = lib.types.str;
+            description = "Username for whom to link Kakoune themes from the nix store using systemd user-level tmpfiles";
+          };
+        };
+
+        config = lib.mkIf cfg.enable {
+          environment.systemPackages = [kak-tree-sitter];
+          systemd.user.tmpfiles.users.${cfg.user}.rules = [
+            "L+ /home/${cfg.user}/.config/kak/colors 0444 - - - ${kak-tree-sitter-themes}/colors"
+          ];
         };
       };
     });
