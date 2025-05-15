@@ -40,10 +40,11 @@ This will:
         home-manager.nixosModules.home-manager
         {
           home-manager = {
-            extraSpecialArgs = {
-              inherit (kak-tree-sitter-helix.homeManagerModules.x86_64-linux) kak-tree-sitter-helix;
-            };
-            users.MY_USERNAME = import ./home-manager.nix;
+            modules = [
+              kak-tree-sitter-helix.homeManagerModules.kak-tree-sitter-helix
+              ./home.nix
+            ];
+            users.MY_USERNAME = import ./home.nix;
           };
         }
       ];
@@ -82,7 +83,7 @@ This will:
     };
 ```
 
-#### Then in home.nix
+### Then in home.nix
 
 ```nix
 {
