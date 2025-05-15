@@ -75,21 +75,55 @@ This will:
       homeConfigurations."username" = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
         modules = [ 
-        ./home.nix 
+          kak-tree-sitter-helix.homeManagerModules.kak-tree-sitter-helix
+          ./home.nix 
         ];
-        extraSpecialArgs = {
-          inherit (kak-tree-sitter-helix.homeManagerModules.x86_64-linux) kak-tree-sitter-helix;
-        };
       };
     };
 ```
 
-### Then in home.nix or home-manager.nix
+#### Then in home.nix
 
 ```nix
-{kak-tree-sitter-helix,...}: {
-  imports = [kak-tree-sitter-helix];
+{
   programs.kak-tree-sitter-helix.enable = true;
+}
+```
+
+### Using nixosModules
+
+```nix
+# flake.nix
+  inputs = {
+    nixpkgs.url = "github:nixos/nixpkgs/nixos-unstable";
+    kak-tree-sitter-helix.url = "github:igor-ramazanov/kak-tree-sitter-helix";
+    kak-tree-sitter-helix.inputs.nixpkgs.follows = "nixpkgs";
+  };
+
+  outputs = { nixpkgs, kak-tree-sitter-helix, ... }:
+    let
+      system = "x86_64-linux";
+      pkgs = nixpkgs.legacyPackages.${system};
+    in {
+      nixosConfigurations."my_machine_name" = nixpkgs.lib.nixosSystem {
+        inherit system;
+        modules = [ 
+          kak-tree-sitter-helix.nixosModules.${system}.kak-tree-sitter-helix
+          ./configuration.nix 
+        ];
+      };
+    };
+```
+
+#### Then in configuration.nix
+
+```nix
+{
+  programs.kak-tree-sitter-helix = {
+    enable = true;
+    # This will link themes directory directly from the /nix/store to /home/my_username/.config/kak/color using systemd tmpfiles
+    user = "my_username";
+  };
 }
 ```
 
