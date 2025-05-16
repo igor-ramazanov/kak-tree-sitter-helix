@@ -1,28 +1,13 @@
 # kak-tree-sitter-helix
 Python and Nix scripts to generate [kak-tree-sitter](https://github.com/phaazon/kak-tree-sitter) grammars, queries and themes by relying on [Helix repository](https://github.com/helix-editor/helix).
 
-## Usage
-Nix flakes + [`home-manager`](https://nix-community.github.io/home-manager/index.xhtml) module only for now, because that's what I use.
-
-1. Add this flake url to flake inputs.
-2. Pass the home-manager module to `extraSpecialArgs`.
-3. Import it: `import = [...];`.
-4. In home-manager config file, set `programs.kak-tree-sitter-helix.enable = true;`
-
-This will:
-1. Add `kak-tree-sitter` package to your `home.packages`.
-1. Create `$XDG_CONFIG_HOME/kak-tree-sitter/config.toml` file.
-1. Create `$XDG_CONFIG_HOME/kak/colors` dir with themes.
-1. Create `$XDG_DATA_DIR/kak-tree-sitter` dir with grammars and queries.
-
-
-### Versioning
+## Versioning
 `A_B_C`, where:
 - `A`: `kak-tree-sitter` version
 - `B`: `helix` version
 - `C`: commit number for the above combination
 
-### Using on non-Nix systems
+## Using on non-Nix systems
 A [nix-portable](https://github.com/DavHau/nix-portable/tree/v012#bundle-programs) bundle provided for running on non-Nix systems.
 
 The bundle embeds `kak-tree-sitter` config, grammars and queries into the resulting binary without needing to use `ktsctl`:
@@ -69,10 +54,10 @@ kak-tree-sitter --server -vvvvv
 
 Done!
 
-#### Limitations
+### Limitations
 Because of how `nix-portable`'s bundles work, the `kak-tree-sitter --server --daemonize` won't work, so that's why it's important to run it externally.
 
-### Using with home-manager as nixos module
+## Using with home-manager as nixos module
 
 ```nix
 # flake.nix
@@ -108,7 +93,7 @@ Because of how `nix-portable`'s bundles work, the `kak-tree-sitter --server --da
 
 ```
 
-### Using home-manager as standalone option
+## Using with home-manager as standalone option
 
 ```nix
 # flake.nix
@@ -137,7 +122,7 @@ Because of how `nix-portable`'s bundles work, the `kak-tree-sitter --server --da
     };
 ```
 
-#### Then in home.nix
+### Then in home.nix
 
 ```nix
 {
@@ -145,7 +130,7 @@ Because of how `nix-portable`'s bundles work, the `kak-tree-sitter --server --da
 }
 ```
 
-### Using nixosModules
+## Using as a NixOS module
 
 ```nix
 # flake.nix
@@ -170,7 +155,7 @@ Because of how `nix-portable`'s bundles work, the `kak-tree-sitter --server --da
     };
 ```
 
-#### Then in configuration.nix
+### Then in configuration.nix
 
 ```nix
 {
@@ -190,7 +175,7 @@ colorscheme catppuccin-latte # Or any other theme from $XDG_CONFIG_DIR/kak/color
 ```
 For more information on kak-tree-sitter flags visit [usage manual](https://github.com/hadronized/kak-tree-sitter/blob/master/docs/man/usage.md).
 
-### termcolors.kak
+## termcolors.kak
 The `$XDG_CONFIG_DIR/kak/colors/termcolors.kak` opinionatedly sets default Kakoune faces using ANSI terminal colors.\
 The reason is that I use [Stylix](https://danth.github.io/stylix) to have consistent theming across the whole NixOS, and `termcolors.kak` makes the Kakoune UI bit more consistent with the terminal colors.\
 I'll remove it in the future once I figure out mapping from Helix to Kakoune's default and UI faces.
