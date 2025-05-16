@@ -106,7 +106,7 @@ This will:
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
     in {
-      nixosConfigurations."my_machine_name" = nixpkgs.lib.nixosSystem {
+      nixosConfigurations.MY_PC_HOSTNAME = nixpkgs.lib.nixosSystem {
         inherit system;
         modules = [ 
           kak-tree-sitter-helix.nixosModules.${system}.kak-tree-sitter-helix
@@ -122,7 +122,7 @@ This will:
 {
   programs.kak-tree-sitter-helix = {
     enable = true;
-    # This will link themes directory directly from the /nix/store to /home/my_username/.config/kak/color using systemd tmpfiles
+    # This will link themes directory directly from the /nix/store as /home/my_username/.config/kak/color/kak-tree-sitter-helix using systemd tmpfiles
     user = "my_username";
   };
 }
