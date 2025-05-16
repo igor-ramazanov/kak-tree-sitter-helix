@@ -40,22 +40,24 @@ jobs:
       - name: Build themes
         run: |
           nix build .#packages.${{ matrix.system }}.themes
-          mkdir -p kak-tree-sitter-${{ matrix.system }}/colors
-          cp result/colors/* kak-tree-sitter-${{ matrix.system }}/colors/
 
       - name: Build binary
         run: |
           nix build .#packages.${{ matrix.system }}.default
 
-      - name: Create bundle
+      - name: Package
         if: github.ref_type == 'tag'
         run: |
           nix bundle --bundler github:DavHau/nix-portable#zstd-max -o bundle .#packages.${{ matrix.system }}.default
-          cp ./bundle/bin/kak-tree-sitter kak-tree-sitter-${{ matrix.system }}/kak-tree-sitter
-          tar czf kak-tree-sitter-${{ matrix.system }}.tar.gz kak-tree-sitter-${{ matrix.system }}
+
+          OUTPUT_WRAPPED=kak-tree-sitter-${{ matrix.system }}-wrapped
+          mkdir -p $OUTPUT_WRAPPED/colors
+          cp result/colors/* $OUTPUT_WRAPPED/colors/
+          cp ./bundle/bin/kak-tree-sitter $OUTPUT_WRAPPED/kak-tree-sitter
+          tar czf $OUTPUT_WRAPPED.tar.gz $OUTPUT_WRAPPED
 
       - name: Release
         if: github.ref_type == 'tag'
         uses: softprops/action-gh-release@v2
         with:
-          files: kak-tree-sitter-${{ matrix.system }}
+          files: kak-tree-sitter-${{ matrix.system }}-wrapped.tar.gz
