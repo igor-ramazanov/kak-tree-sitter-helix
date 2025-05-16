@@ -140,8 +140,8 @@
     language = builtins.listToAttrs languages;
     highlight = {inherit groups;};
     features = {
-      highlighting = true;
-      text_objects = true;
+      highlighting = false;
+      text_objects = false;
     };
   };
 in
