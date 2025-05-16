@@ -15,6 +15,65 @@ This will:
 1. Create `$XDG_CONFIG_HOME/kak/colors` dir with themes.
 1. Create `$XDG_DATA_DIR/kak-tree-sitter` dir with grammars and queries.
 
+
+### Versioning
+`A_B_C`, where:
+- `A`: `kak-tree-sitter` version
+- `B`: `helix` version
+- `C`: commit number for the above combination
+
+### Using on non-Nix systems
+A [nix-portable](https://github.com/DavHau/nix-portable/tree/v012#bundle-programs) bundle provided for running on non-Nix systems.
+
+The bundle embeds `kak-tree-sitter` config, grammars and queries into the resulting binary without needing to use `ktsctl`:
+```bash
+VERSION=v1.1.2-dev_25.01.1_1
+wget "https://github.com/igor-ramazanov/kak-tree-sitter-helix/releases/download/${VERSION}/kak-tree-sitter-x86_64-linux-wrapped.tar.gz"
+tar xzf kak-tree-sitter-x86_64-linux-wrapped.tar.gz
+tree -L 1 -h -F kak-tree-sitter-x86_64-linux-wrapped/
+
+# [4.0K]  kak-tree-sitter-x86_64-linux-wrapped//
+# ├── [4.0K]  colors/
+# └── [ 88M]  kak-tree-sitter*
+```
+
+Put the `kak-tree-sitter` executable somewhere to be accessible by `$PATH`.
+
+Move/copy themes to the Kakoune's `colors` directory.
+
+Configure Kakoune:
+```KakScript
+
+# Define various kak-tree-sitter commands and options
+evaluate-commands %sh{ kak-tree-sitter --init $kak_session --kakoune }
+
+# Optional: delete default highlighters
+define-command -override tree-sitter-user-after-highlighter %{
+  try %{
+    remove-highlighter "window/%opt{filetype}"
+  }
+}
+
+# Connect to a running kak-tree-sitter server
+tree-sitter-session-begin
+
+# Optional: a theme for Kakoune UI elements only to match their colors with the terminal, will be removed eventually
+colorscheme termcolors
+
+# Set a theme
+colorscheme catppuccin-latte
+```
+
+Start a `kak-tree-sitter` server:
+```bash
+kak-tree-sitter --server -vvvvv
+```
+
+Done!
+
+#### Limitations
+Because of how `nix-portable`'s bundles work, the `kak-tree-sitter --server --daemonize` won't work, so that's why it's important to run it externally.
+
 ### Using home-manager as nixos module
 
 ```nix
