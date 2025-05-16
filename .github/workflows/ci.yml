@@ -1,0 +1,63 @@
+name: CI
+on: push
+
+concurrency:
+  group: ${{ github.ref_name }}-build
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        system: ["x86_64-linux"]
+    steps:
+      - name: Clone the repo
+        uses: actions/checkout@v4
+
+      - name: Install Nix
+        uses: nixbuild/nix-quick-install-action@v30
+        with:
+          nix_version: 2.26.1
+          nix_on_tmpfs: true
+          nix_conf: |
+            keep-env-derivations = true
+            keep-outputs = true
+
+      - name: Restore and save Nix store
+        uses: nix-community/cache-nix-action@v6
+        with:
+          primary-key: nix-${{ runner.os }}-${{ hashFiles('**/*.nix', '**/flake.lock') }}
+          restore-prefixes-first-match: nix-${{ runner.os }}-
+          gc-max-store-size-linux: 10G
+          purge: true
+          purge-prefixes: nix-${{ runner.os }}-
+          purge-created: 0
+          purge-last-accessed: 0
+          purge-primary-key: never
+
+      - name: Build themes
+        run: |
+          nix build .#packages.${{ matrix.system }}.themes
+
+      - name: Build binary
+        run: |
+          nix build .#packages.${{ matrix.system }}.default
+
+      - name: Package
+        if: github.ref_type == 'tag'
+        run: |
+          nix bundle --bundler github:DavHau/nix-portable#zstd-max -o bundle .#packages.${{ matrix.system }}.default
+
+          OUTPUT_WRAPPED=kak-tree-sitter-${{ matrix.system }}-wrapped
+          mkdir -p $OUTPUT_WRAPPED/colors
+          cp result/colors/* $OUTPUT_WRAPPED/colors/
+          cp ./bundle/bin/kak-tree-sitter $OUTPUT_WRAPPED/kak-tree-sitter
+          tar czf $OUTPUT_WRAPPED.tar.gz $OUTPUT_WRAPPED
+
+      - name: Release
+        if: github.ref_type == 'tag'
+        uses: softprops/action-gh-release@v2
+        with:
+          files: kak-tree-sitter-${{ matrix.system }}-wrapped.tar.gz
