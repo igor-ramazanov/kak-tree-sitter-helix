@@ -37,13 +37,13 @@ jobs:
           purge-last-accessed: 0
           purge-primary-key: never
 
-      - name: Build themes
-        run: |
-          nix build .#packages.${{ matrix.system }}.themes
-
       - name: Build binary
         run: |
           nix build .#packages.${{ matrix.system }}.default
+
+      - name: Build themes
+        run: |
+          nix build --out-link themes .#packages.${{ matrix.system }}.themes
 
       - name: Package
         if: github.ref_type == 'tag'
@@ -51,9 +51,12 @@ jobs:
           nix bundle --bundler github:DavHau/nix-portable/v012#zstd-max -o bundle .#packages.${{ matrix.system }}.default
 
           OUTPUT_WRAPPED=kak-tree-sitter-${{ matrix.system }}-wrapped
+
           mkdir -p $OUTPUT_WRAPPED/colors
-          cp result/colors/* $OUTPUT_WRAPPED/colors/
+
+          cp themes/colors/* $OUTPUT_WRAPPED/colors/
           cp ./bundle/bin/kak-tree-sitter $OUTPUT_WRAPPED/kak-tree-sitter
+
           tar czf $OUTPUT_WRAPPED.tar.gz $OUTPUT_WRAPPED
 
       - name: Release
