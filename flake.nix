@@ -2,9 +2,22 @@
   description = "kak-tree-sitter + helix = ❤";
 
   inputs = {
-    fenix.inputs.nixpkgs.follows = "nixpkgs";
-    fenix.url = "github:nix-community/fenix";
-    flake-utils.url = "github:numtide/flake-utils";
+    fenix = {
+      url = "github:nix-community/fenix";
+      inputs = {
+        nixpkgs.follows = "nixpkgs";
+      };
+    };
+
+    flake-utils = {
+      url = "github:numtide/flake-utils";
+    };
+
+    nix-github-actions = {
+      url = "github:nix-community/nix-github-actions";
+      inputs.nixpkgs.follows = "nixpkgs";
+    };
+
     nixpkgs.url = "github:NixOS/nixpkgs/nixpkgs-unstable";
   };
 
@@ -54,8 +67,8 @@
         stdenv,
       }:
         stdenv.mkDerivation {
-          pname = "kak-tree-sitter";
-          version = "0.1.0";
+          pname = "kak-tree-sitter-helix";
+          version = kak-tree-sitter-unwrapped.version;
           nativeBuildInputs = [
             # Listing dependencies to make it easier for `nix bundle` to get a closure
             # NOTE: May not be needed
