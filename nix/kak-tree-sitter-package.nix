@@ -6,12 +6,7 @@
 rustPlatform.buildRustPackage rec {
   pname = "kak-tree-sitter";
 
-  version = let
-    cargoTomlPath = "${src}/kak-tree-sitter/Cargo.toml";
-    cargoTomlContent = builtins.readFile cargoTomlPath;
-    cargoToml = builtins.fromTOML cargoTomlContent;
-  in
-    cargoToml.package.version;
+  version = "1.1.2-dev";
 
   src = fetchFromGitHub {
     owner = "hadronized";
