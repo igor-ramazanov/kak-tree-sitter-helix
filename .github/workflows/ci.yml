@@ -48,7 +48,7 @@ jobs:
       - name: Package
         if: github.ref_type == 'tag'
         run: |
-          nix bundle --bundler github:DavHau/nix-portable#zstd-max -o bundle .#packages.${{ matrix.system }}.default
+          nix bundle --bundler github:DavHau/nix-portable/v012#zstd-max -o bundle .#packages.${{ matrix.system }}.default
 
           OUTPUT_WRAPPED=kak-tree-sitter-${{ matrix.system }}-wrapped
           mkdir -p $OUTPUT_WRAPPED/colors
