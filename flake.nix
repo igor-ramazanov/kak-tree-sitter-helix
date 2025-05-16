@@ -113,7 +113,7 @@
 
         config = lib.mkIf config.programs.kak-tree-sitter-helix.enable {
           home.packages = [kak-tree-sitter];
-          xdg.configFile."kak/colors".source = "${kak-tree-sitter-themes}/colors";
+          xdg.configFile."kak/colors/kak-tree-sitter-helix".source = "${kak-tree-sitter-themes}/colors";
         };
       };
 
@@ -137,7 +137,7 @@
         config = lib.mkIf cfg.enable {
           environment.systemPackages = [kak-tree-sitter];
           systemd.user.tmpfiles.users.${cfg.user}.rules = [
-            "L+ /home/${cfg.user}/.config/kak/colors 0444 - - - ${kak-tree-sitter-themes}/colors"
+            "L+ /home/${cfg.user}/.config/kak/colors/kak-tree-sitter-helix 0444 - - - ${kak-tree-sitter-themes}/colors"
           ];
         };
       };
