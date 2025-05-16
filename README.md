@@ -30,6 +30,9 @@ Make sure you have the following code somewhere in `$XDG_CONFIG_DIR/kak/autoload
 # Define various kak-tree-sitter commands and options
 evaluate-commands %sh{ kak-tree-sitter --init $kak_session --kakoune }
 
+# Optional: use with `--with-text-objects` to enable tree-sitter objects navigation
+# evaluate-commands %sh{ kak-tree-sitter --init $kak_session --kakoune --with-text-objects }
+
 # Optional: delete default highlighters
 define-command -override tree-sitter-user-after-highlighter %{
   try %{
@@ -169,7 +172,10 @@ Because of how `nix-portable`'s bundles work, the `kak-tree-sitter --server --da
 
 Make sure you have the following code somewhere in `$XDG_CONFIG_DIR/kak/autoload` or in `$XDG_CONFIG_DIR/kak/kakrc`:
 ```KakScript
-eval %sh{ kak-tree-sitter -dks --init $kak_session }
+evaluate-commands %sh{ kak-tree-sitter --init $kak_session --kakoune --daemonize --server }
+# Optional: use with `--with-text-objects` flag to enable tree-sitter objects navigation
+# evaluate-commands %sh{ kak-tree-sitter --init $kak_session --kakoune --with-text-objects }
+
 colorscheme termcolors # Optional, read below.
 colorscheme catppuccin-latte # Or any other theme from $XDG_CONFIG_DIR/kak/colors.
 ```
