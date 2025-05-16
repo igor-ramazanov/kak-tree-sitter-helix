@@ -31,7 +31,6 @@ VERSION=v1.1.2-dev_25.01.1_1
 wget "https://github.com/igor-ramazanov/kak-tree-sitter-helix/releases/download/${VERSION}/kak-tree-sitter-x86_64-linux-wrapped.tar.gz"
 tar xzf kak-tree-sitter-x86_64-linux-wrapped.tar.gz
 tree -L 1 -h -F kak-tree-sitter-x86_64-linux-wrapped/
-
 # [4.0K]  kak-tree-sitter-x86_64-linux-wrapped//
 # ├── [4.0K]  colors/
 # └── [ 88M]  kak-tree-sitter*
@@ -41,9 +40,8 @@ Put the `kak-tree-sitter` executable somewhere to be accessible by `$PATH`.
 
 Move/copy themes to the Kakoune's `colors` directory.
 
-Configure Kakoune:
+Make sure you have the following code somewhere in `$XDG_CONFIG_DIR/kak/autoload` or in `$XDG_CONFIG_DIR/kak/kakrc`:
 ```KakScript
-
 # Define various kak-tree-sitter commands and options
 evaluate-commands %sh{ kak-tree-sitter --init $kak_session --kakoune }
 
@@ -57,14 +55,14 @@ define-command -override tree-sitter-user-after-highlighter %{
 # Connect to a running kak-tree-sitter server
 tree-sitter-session-begin
 
-# Optional: a theme for Kakoune UI elements only to match their colors with the terminal, will be removed eventually
+# Optional: a theme for Kakoune UI elements to match their colors with the terminal, read below
 colorscheme termcolors
 
 # Set a theme
 colorscheme catppuccin-latte
 ```
 
-Start a `kak-tree-sitter` server:
+Start a `kak-tree-sitter` server in another terminal window:
 ```bash
 kak-tree-sitter --server -vvvvv
 ```
@@ -74,7 +72,7 @@ Done!
 #### Limitations
 Because of how `nix-portable`'s bundles work, the `kak-tree-sitter --server --daemonize` won't work, so that's why it's important to run it externally.
 
-### Using home-manager as nixos module
+### Using with home-manager as nixos module
 
 ```nix
 # flake.nix
@@ -99,10 +97,7 @@ Because of how `nix-portable`'s bundles work, the `kak-tree-sitter --server --da
         home-manager.nixosModules.home-manager
         {
           home-manager = {
-            modules = [
-              kak-tree-sitter-helix.homeManagerModules.kak-tree-sitter-helix
-              ./home.nix
-            ];
+            modules = [ kak-tree-sitter-helix.homeManagerModules.kak-tree-sitter-helix ];
             users.MY_USERNAME = import ./home.nix;
           };
         }
@@ -132,17 +127,17 @@ Because of how `nix-portable`'s bundles work, the `kak-tree-sitter --server --da
       system = "x86_64-linux";
       pkgs = nixpkgs.legacyPackages.${system};
     in {
-      homeConfigurations."username" = home-manager.lib.homeManagerConfiguration {
+      homeConfigurations.MY_USERNAME = home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
-        modules = [ 
+        modules = [
           kak-tree-sitter-helix.homeManagerModules.kak-tree-sitter-helix
-          ./home.nix 
+          ./home.nix
         ];
       };
     };
 ```
 
-### Then in home.nix
+#### Then in home.nix
 
 ```nix
 {
@@ -181,8 +176,8 @@ Because of how `nix-portable`'s bundles work, the `kak-tree-sitter --server --da
 {
   programs.kak-tree-sitter-helix = {
     enable = true;
-    # This will link themes directory directly from the /nix/store as /home/my_username/.config/kak/color/kak-tree-sitter-helix using systemd tmpfiles
-    user = "my_username";
+    # This will link themes directory directly from the /nix/store as /home/MY_USERNAME/.config/kak/color/kak-tree-sitter-helix using systemd tmpfiles
+    user = "MY_USERNAME";
   };
 }
 ```
@@ -190,7 +185,7 @@ Because of how `nix-portable`'s bundles work, the `kak-tree-sitter --server --da
 Make sure you have the following code somewhere in `$XDG_CONFIG_DIR/kak/autoload` or in `$XDG_CONFIG_DIR/kak/kakrc`:
 ```KakScript
 eval %sh{ kak-tree-sitter -dks --init $kak_session }
-colorscheme termcolors # Unnecessary, read below.
+colorscheme termcolors # Optional, read below.
 colorscheme catppuccin-latte # Or any other theme from $XDG_CONFIG_DIR/kak/colors.
 ```
 For more information on kak-tree-sitter flags visit [usage manual](https://github.com/hadronized/kak-tree-sitter/blob/master/docs/man/usage.md).
@@ -202,7 +197,7 @@ I'll remove it in the future once I figure out mapping from Helix to Kakoune's d
 
 ## Motivation
 `kak-tree-sitter` is an amazing tool that brings the power of [tree-sitter](https://tree-sitter.github.io/tree-sitter/) to [Kakoune](http://kakoune.org).\
-However, it requires laboursome configuration to define grammars and themes.\
+However, it requires configuration to define grammars and themes.\
 I would like to recreate Helix-like experience with minimal configuration.
 
 ## Note
