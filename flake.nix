@@ -54,7 +54,8 @@
         stdenv,
       }:
         stdenv.mkDerivation {
-          name = "kak-tree-sitter";
+          pname = "kak-tree-sitter";
+          version = "0.1.0";
           nativeBuildInputs = [
             # Listing dependencies to make it easier for `nix bundle` to get a closure
             # NOTE: May not be needed
@@ -81,6 +82,8 @@
               --set XDG_DATA_HOME "$out/share" \
               --set XDG_CONFIG_HOME "$out/config"
           '';
+
+          meta.mainProgram = "kak-tree-sitter";
         };
 
       kak-tree-sitter = pkgs.callPackage kak-tree-sitter-derivation {
