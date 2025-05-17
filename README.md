@@ -52,7 +52,9 @@ colorscheme catppuccin-latte
 
 Start a `kak-tree-sitter` server in another terminal window:
 ```bash
-kak-tree-sitter --server -vvvvv
+kak-tree-sitter --server --with-highlighting -vvvvv
+# Optional: use with `--with-text-objects` to enable tree-sitter objects navigation
+kak-tree-sitter --server --with-highlighting --with-text-objects -vvvvv
 ```
 
 Done!
@@ -172,9 +174,9 @@ Because of how `nix-portable`'s bundles work, the `kak-tree-sitter --server --da
 
 Make sure you have the following code somewhere in `$XDG_CONFIG_DIR/kak/autoload` or in `$XDG_CONFIG_DIR/kak/kakrc`:
 ```KakScript
-evaluate-commands %sh{ kak-tree-sitter --init $kak_session --kakoune --daemonize --server }
+evaluate-commands %sh{ kak-tree-sitter --init $kak_session --kakoune --daemonize --server --with-highlighting }
 # Optional: use with `--with-text-objects` flag to enable tree-sitter objects navigation
-# evaluate-commands %sh{ kak-tree-sitter --init $kak_session --kakoune --with-text-objects }
+# evaluate-commands %sh{ kak-tree-sitter --init $kak_session --kakoune --with-highlighting --with-text-objects }
 
 colorscheme termcolors # Optional, read below.
 colorscheme catppuccin-latte # Or any other theme from $XDG_CONFIG_DIR/kak/colors.
