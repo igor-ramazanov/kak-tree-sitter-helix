@@ -1,5 +1,5 @@
 {
-  fetchFromGitHub,
+  fetchFromSourcehut,
   git,
   rustPlatform,
 }:
@@ -8,8 +8,8 @@ rustPlatform.buildRustPackage rec {
 
   version = "1.1.2-dev";
 
-  src = fetchFromGitHub {
-    owner = "hadronized";
+  src = fetchFromSourcehut {
+    owner = "~hadronized";
     repo = "kak-tree-sitter";
     rev = "955b31df81532fc67a2e56279457d587f1d615fb";
     hash = "sha256-LuFI0tRtZZ9C6xKRUbSzE/oI8Z7djo7RvF5xM8776gI=";
