@@ -6,18 +6,16 @@
 rustPlatform.buildRustPackage rec {
   pname = "kak-tree-sitter";
 
-  version = "1.1.2-dev";
+  version = "2.0.0-cdcfb42";
 
   src = fetchFromSourcehut {
     owner = "~hadronized";
     repo = "kak-tree-sitter";
-    rev = "955b31df81532fc67a2e56279457d587f1d615fb";
-    hash = "sha256-LuFI0tRtZZ9C6xKRUbSzE/oI8Z7djo7RvF5xM8776gI=";
+    rev = "cdcfb42da9affd9dd0db9e8df1173731c61e3d9f";
+    hash = "sha256-Q8R++fEJMZFftiI9zGjwF7X8mek2oc40Yl9WMUtQWEA=";
   };
 
   nativeBuildInputs = [ git ];
-
-  patches = [ ./kts.patch ];
 
   cargoLock = {
     lockFile = "${src}/Cargo.lock";
