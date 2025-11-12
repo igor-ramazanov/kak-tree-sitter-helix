@@ -10,6 +10,7 @@ let
     "comment"
     "comment.block"
     "comment.line"
+    "comment.unused"
     "constant"
     "constant.builtin"
     "constant.builtin.boolean"
@@ -30,6 +31,7 @@ let
     "function.builtin"
     "function.macro"
     "function.method"
+    "function.method.private"
     "function.special"
     "hint"
     "include"
@@ -97,9 +99,12 @@ let
     "type"
     "type.builtin"
     "type.enum.variant"
+    "type.enum.variant.builtin"
+    "type.parameter"
     "variable"
     "variable.builtin"
     "variable.other.member"
+    "variable.other.member.private"
     "variable.parameter"
     "warning"
   ];
@@ -118,24 +123,29 @@ let
     l: (builtins.elem (l.grammar or l.name) gitGrammars)
   ) languagesConfig.language;
 
+  grammars = builtins.map (lang: {
+    name = "${lang.name}";
+    value = {
+      # grammar.compile = "";
+      compile_args = [ ];
+      compile_flags = [ ];
+      # grammar.link = "";
+      link_args = [ ];
+      link_flags = [ ];
+      # grammar.name = lang.grammar or lang.name;
+      source.local.path = "${kak-tree-sitter-grammars}/grammars/${lang.grammar or lang.name}.so";
+    };
+  }) filteredLanguages;
+
   languages = builtins.map (lang: {
     name = "${lang.name}";
     value = {
-      grammar.compile = "";
-      grammar.compile_args = [ ];
-      grammar.compile_flags = [ ];
-      grammar.link = "";
-      grammar.link_args = [ ];
-      grammar.link_flags = [ ];
-      grammar.name = lang.grammar or lang.name;
-      grammar.path = "";
-      grammar.source.local.path = "${kak-tree-sitter-grammars}/grammars/${lang.grammar or lang.name}.so";
-      remove_default_highlighter = true;
-      queries.path = "";
       queries.source.local.path = "${kak-tree-sitter-grammars}/queries/${lang.name}";
     };
   }) filteredLanguages;
+
   config = (pkgs.formats.toml { }).generate "kak-tree-sitter-config.toml" {
+    grammar = builtins.listToAttrs grammars;
     language = builtins.listToAttrs languages;
     highlight = { inherit groups; };
     features = {
