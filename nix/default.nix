@@ -1,26 +1,24 @@
 {
   helix,
   pkgs,
-}: let
-  kak-tree-sitter-unwrapped =
-    pkgs.callPackage
-    ./kak-tree-sitter-package.nix {};
+}:
+let
+  kak-tree-sitter-unwrapped = pkgs.callPackage ./kak-tree-sitter-package.nix { };
 
-  kak-tree-sitter-grammars =
-    pkgs.callPackage
-    (import ./gen-grammars.nix {inherit helix;}) {};
+  kak-tree-sitter-grammars = pkgs.callPackage (import ./gen-grammars.nix { inherit helix; }) { };
 
-  kak-tree-sitter-config =
-    pkgs.callPackage
-    (import ./gen-config.nix {inherit helix kak-tree-sitter-grammars;}) {};
+  kak-tree-sitter-config = pkgs.callPackage (import ./gen-config.nix {
+    inherit helix kak-tree-sitter-grammars;
+  }) { };
 
-  kak-tree-sitter-derivation = {
-    kak-tree-sitter-config,
-    kak-tree-sitter-grammars,
-    kak-tree-sitter-unwrapped,
-    makeWrapper,
-    stdenv,
-  }:
+  kak-tree-sitter-derivation =
+    {
+      kak-tree-sitter-config,
+      kak-tree-sitter-grammars,
+      kak-tree-sitter-unwrapped,
+      makeWrapper,
+      stdenv,
+    }:
     stdenv.mkDerivation {
       pname = "kak-tree-sitter-helix";
       version = kak-tree-sitter-unwrapped.version;
@@ -54,10 +52,10 @@
       meta.mainProgram = "kak-tree-sitter";
     };
 in
-  pkgs.callPackage kak-tree-sitter-derivation {
-    inherit
-      kak-tree-sitter-config
-      kak-tree-sitter-grammars
-      kak-tree-sitter-unwrapped
-      ;
-  }
+pkgs.callPackage kak-tree-sitter-derivation {
+  inherit
+    kak-tree-sitter-config
+    kak-tree-sitter-grammars
+    kak-tree-sitter-unwrapped
+    ;
+}

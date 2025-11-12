@@ -1,4 +1,5 @@
-{helix}: {
+{ helix }:
+{
   stdenv,
   python311,
   ...
@@ -7,7 +8,7 @@ stdenv.mkDerivation {
   pname = "kak-tree-sitter-themes";
   version = helix.version;
   src = ./../python;
-  buildInputs = [python311];
+  buildInputs = [ python311 ];
   buildPhase = ''
     mkdir themes
     cp ${helix.repo}/runtime/themes/*.toml ./themes/
