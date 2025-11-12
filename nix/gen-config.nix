@@ -2,7 +2,9 @@
 {
   helix,
   kak-tree-sitter-grammars,
-}: {pkgs, ...}: let
+}:
+{ pkgs, ... }:
+let
   groups = [
     "attribute"
     "comment"
@@ -102,50 +104,47 @@
     "warning"
   ];
 
-  languagesConfig =
-    builtins.fromTOML (builtins.readFile "${helix.repo}/languages.toml");
+  languagesConfig = builtins.fromTOML (builtins.readFile "${helix.repo}/languages.toml");
 
-  isGitGrammar = grammar:
+  isGitGrammar =
+    grammar:
     builtins.hasAttr "source" grammar
     && builtins.hasAttr "git" grammar.source
     && builtins.hasAttr "rev" grammar.source;
 
   gitGrammars = builtins.map (g: g.name) (builtins.filter isGitGrammar languagesConfig.grammar);
 
-  filteredLanguages =
-    builtins.filter (l: (builtins.elem (l.grammar or l.name) gitGrammars))
-    languagesConfig.language;
+  filteredLanguages = builtins.filter (
+    l: (builtins.elem (l.grammar or l.name) gitGrammars)
+  ) languagesConfig.language;
 
-  languages =
-    builtins.map
-    (lang: {
-      name = "${lang.name}";
-      value = {
-        grammar.compile = "";
-        grammar.compile_args = [];
-        grammar.compile_flags = [];
-        grammar.link = "";
-        grammar.link_args = [];
-        grammar.link_flags = [];
-        grammar.name = lang.grammar or lang.name;
-        grammar.path = "";
-        grammar.source.local.path = "${kak-tree-sitter-grammars}/grammars/${lang.grammar or lang.name}.so";
-        remove_default_highlighter = true;
-        queries.path = "";
-        queries.source.local.path = "${kak-tree-sitter-grammars}/queries/${lang.name}";
-      };
-    })
-    filteredLanguages;
-  config = (pkgs.formats.toml {}).generate "kak-tree-sitter-config.toml" {
+  languages = builtins.map (lang: {
+    name = "${lang.name}";
+    value = {
+      grammar.compile = "";
+      grammar.compile_args = [ ];
+      grammar.compile_flags = [ ];
+      grammar.link = "";
+      grammar.link_args = [ ];
+      grammar.link_flags = [ ];
+      grammar.name = lang.grammar or lang.name;
+      grammar.path = "";
+      grammar.source.local.path = "${kak-tree-sitter-grammars}/grammars/${lang.grammar or lang.name}.so";
+      remove_default_highlighter = true;
+      queries.path = "";
+      queries.source.local.path = "${kak-tree-sitter-grammars}/queries/${lang.name}";
+    };
+  }) filteredLanguages;
+  config = (pkgs.formats.toml { }).generate "kak-tree-sitter-config.toml" {
     language = builtins.listToAttrs languages;
-    highlight = {inherit groups;};
+    highlight = { inherit groups; };
     features = {
       highlighting = false;
       text_objects = false;
     };
   };
 in
-  pkgs.runCommandLocal "kak-tree-sitter-config" {} ''
-    mkdir $out
-    ln -s ${config} $out/config.toml
-  ''
+pkgs.runCommandLocal "kak-tree-sitter-config" { } ''
+  mkdir $out
+  ln -s ${config} $out/config.toml
+''
