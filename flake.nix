@@ -24,12 +24,12 @@
       mkHelix =
         { pkgs, ... }:
         rec {
-          version = "25.01.1";
+          version = "87d5c05c4432a079d3b7aaa10cda1cfe1803c18c";
           repo = pkgs.fetchFromGitHub {
             owner = "helix-editor";
             repo = "helix";
             rev = version;
-            hash = "sha256-wGfX2YcD9Hyqi7sQ8FSqUbN8/Rhftp01YyHoTWYPL8U=";
+            hash = "sha256-okg6j5wIwTZmdrNhB1TOxpyLtJN9/fV6qXobWGpp+Y8=";
           };
         };
     in
